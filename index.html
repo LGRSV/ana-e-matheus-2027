@@ -73,6 +73,7 @@
   /* local */
   .local{display:grid; gap:28px; align-items:center}
   .local figure{margin:0; border-radius:12px; overflow:hidden; box-shadow:0 18px 40px -24px rgba(47,42,37,.5)}
+  .local figure img{width:100%; aspect-ratio:4 / 5; object-fit:cover; object-position:50% 60%}
   .info{display:grid; gap:14px; margin:0 0 22px}
   .info div{display:flex; gap:14px; align-items:flex-start}
   .info svg{flex:none; width:22px; height:22px; color:var(--accent); margin-top:3px}
@@ -88,6 +89,46 @@
   .btn:hover{filter:brightness(.92)}
   .btn svg{width:16px; height:16px}
   .nota{font-size:13px; color:var(--soft); text-align:center; margin-top:14px}
+
+  /* formulários */
+  .form{max-width:480px; margin:26px auto 0; text-align:left; display:grid; gap:16px; background:#fff; border:1px solid var(--line);
+        border-radius:16px; padding:24px 20px; box-shadow:0 18px 40px -30px rgba(47,42,37,.45)}
+  .campo{display:grid; gap:6px}
+  .campo > span, .campo legend{font-size:13px; font-weight:600; letter-spacing:.03em; color:var(--ink); padding:0}
+  .campo small{font-weight:500; color:var(--soft)}
+  .form input, .form textarea{width:100%; font:500 16px/1.4 var(--sans); color:var(--ink); background:var(--bg); border:1px solid var(--line);
+        border-radius:10px; padding:11px 13px; min-height:46px}
+  .form textarea{resize:vertical; min-height:96px}
+  .form input:focus, .form textarea:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  fieldset.campo{border:0; margin:0; padding:0; min-width:0}
+  .opcoes{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .opcoes label{position:relative}
+  .opcoes input{position:absolute; opacity:0; inset:0; min-height:0; cursor:pointer}
+  .opcoes span{display:flex; align-items:center; justify-content:center; min-height:46px; border:1px solid var(--line); border-radius:10px;
+        font:600 15px/1.2 var(--sans); color:var(--soft); background:var(--bg); padding:8px; text-align:center}
+  .opcoes input:checked + span{background:var(--accent); border-color:var(--accent); color:#fff}
+  .opcoes input:focus-visible + span{outline:2px solid var(--accent); outline-offset:2px}
+  .dupla{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .isca{position:absolute !important; left:-9999px; width:1px; height:1px; overflow:hidden}
+  .form .btn{justify-content:center; width:100%; cursor:pointer; font-size:15px}
+  .form .btn[disabled]{opacity:.6; cursor:progress}
+  .aviso{margin:0; padding:12px 14px; border-radius:10px; font-size:14px; line-height:1.5}
+  .aviso.ok{background:#eef3ec; color:#3d5a36; border:1px solid #cfdcc9}
+  .aviso.erro{background:#f8ecea; color:#8a3b2f; border:1px solid #ecd0ca}
+  .feito{max-width:480px; margin:26px auto 0; background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px 20px; text-align:center}
+  .feito p{margin:0 0 14px}
+  .feito .btn{cursor:pointer}
+  [hidden]{display:none !important}
+  .pix{max-width:400px; margin:34px auto 0; background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px 20px; text-align:center}
+  .pix h3{font:400 28px/1.2 var(--serif); margin:0 0 8px}
+  .pix > p{color:var(--soft); font-size:15px}
+  .pix .qr{width:220px; max-width:100%; margin:6px auto 12px; background:#fff}
+  .pix .qr svg{display:block; width:100%; height:auto}
+  .pix .recebedor{margin:0 0 14px; font-size:15px}
+  .pix .btn{cursor:pointer; justify-content:center}
+  .pix .nota{min-height:1.4em}
+  .retrato img.nova{transform:none; object-position:50% 35%}
+  .capa .fundo img.nova{object-position:50% 35%}
 
   footer{background:var(--dark); color:#cfc4b6; text-align:center; padding:44px 20px 52px}
   footer .mono{background:transparent}
@@ -107,6 +148,7 @@
     nav ul{justify-content:center}
     section{padding:88px 32px}
     .local{grid-template-columns:1fr 1fr; gap:48px}
+    .local figure img{aspect-ratio:1 / 1; object-position:50% 55%}
     .wrap.largo{max-width:980px}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -167,7 +209,7 @@
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-recepcao">Cerimônia e recepção</h2>
       <div class="local">
-        <figure><img src="img/cabana-do-lago.webp" width="810" height="1020" loading="lazy" alt="Entrada do restaurante Cabana do Lago, com a frase: Mais que uma entrada. Um símbolo da nossa história."></figure>
+        <figure><img src="img/cabana-do-lago-fachada.webp" width="1100" height="1650" loading="lazy" alt="Fachada do restaurante Cabana do Lago ao entardecer"></figure>
         <div>
           <p>Convidamos você pontualmente para nossa cerimônia no dia 7 de janeiro de 2027, no restaurante Cabana do Lago, em Palmas, Tocantins.</p>
           <div class="info">
@@ -194,6 +236,14 @@
         <a class="btn cheio" target="_blank" rel="noopener" href="https://noivos.casar.com/ana-e-matheus-2027-01-07#presentes">Ver a lista de presentes</a>
       </div>
       <p class="nota">Abre a lista oficial do casal em outra aba, onde o presente é escolhido e pago com segurança.</p>
+      <div class="pix" id="pix" hidden>
+        <h3>Ou presenteie por Pix</h3>
+        <p>Aponte a câmera do app do seu banco para o QR code, ou copie o código e cole na opção “Pix copia e cola”. O valor você escolhe no app.</p>
+        <div class="qr" id="pix-qr" role="img" aria-label="QR code do Pix"></div>
+        <p class="recebedor">Recebedor: <strong id="pix-nome"></strong></p>
+        <button type="button" class="btn cheio" id="pix-copiar">Copiar código Pix (copia e cola)</button>
+        <p class="nota" id="pix-aviso" role="status" aria-live="polite"></p>
+      </div>
     </div>
   </section>
 
@@ -202,10 +252,33 @@
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-confirmacao">Confirme sua presença</h2>
       <p>É muito importante confirmar sua presença. Informe seu nome completo, se irá ao evento e quantos adultos e crianças irão com você.</p>
-      <div class="botoes centro" style="margin-top:24px">
-        <a class="btn cheio" target="_blank" rel="noopener" href="https://noivos.casar.com/ana-e-matheus-2027-01-07#rsvp">Confirmar presença</a>
+      <div class="feito" id="rsvp-feito" hidden>
+        <p id="rsvp-feito-txt">Presença já confirmada neste aparelho.</p>
+        <button type="button" class="btn" id="rsvp-outra">Enviar outra confirmação</button>
       </div>
-      <p class="nota">A confirmação é feita no formulário oficial do casal, em outra aba.</p>
+      <form class="form" id="rsvp" novalidate>
+        <label class="campo"><span>Nome completo</span>
+          <input name="nome" required minlength="2" maxlength="120" autocomplete="name" placeholder="Seu nome e sobrenome"></label>
+        <fieldset class="campo"><legend>Você vai?</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="vai" value="sim" checked><span>Sim, estarei lá</span></label>
+            <label><input type="radio" name="vai" value="nao"><span>Infelizmente não</span></label>
+          </div>
+        </fieldset>
+        <div class="dupla" id="rsvp-qtd">
+          <label class="campo"><span>Adultos <small>(com você)</small></span>
+            <input name="adultos" type="number" inputmode="numeric" min="1" max="20" value="1"></label>
+          <label class="campo"><span>Crianças</span>
+            <input name="criancas" type="number" inputmode="numeric" min="0" max="20" value="0"></label>
+        </div>
+        <label class="campo"><span>Telefone <small>(opcional)</small></span>
+          <input name="telefone" type="tel" maxlength="30" autocomplete="tel" placeholder="(63) 90000-0000"></label>
+        <label class="campo"><span>Mensagem aos noivos <small>(opcional)</small></span>
+          <textarea name="mensagem" maxlength="500" rows="3"></textarea></label>
+        <label class="isca" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
+        <p class="aviso" role="status" aria-live="polite" hidden></p>
+        <button class="btn cheio" type="submit">Confirmar presença</button>
+      </form>
     </div>
   </section>
 
@@ -214,9 +287,15 @@
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-recados">Deixe seu recado</h2>
       <p>Deixe uma mensagem de carinho para os noivos.</p>
-      <div class="botoes centro" style="margin-top:24px">
-        <a class="btn" target="_blank" rel="noopener" href="https://noivos.casar.com/ana-e-matheus-2027-01-07#recados">Escrever um recado</a>
-      </div>
+      <form class="form" id="recado" novalidate>
+        <label class="campo"><span>Seu nome</span>
+          <input name="nome" required minlength="2" maxlength="120" autocomplete="name"></label>
+        <label class="campo"><span>Recado</span>
+          <textarea name="mensagem" required minlength="2" maxlength="1000" rows="4" placeholder="Escreva aqui sua mensagem de carinho"></textarea></label>
+        <label class="isca" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
+        <p class="aviso" role="status" aria-live="polite" hidden></p>
+        <button class="btn cheio" type="submit">Enviar recado</button>
+      </form>
     </div>
   </section>
 </main>
@@ -240,6 +319,260 @@
       el.s.textContent = dois(Math.floor(r % 60));
     }
     tick(); setInterval(tick, 1000);
+  })();
+
+  (function () {
+    var SB = "https://gypllpiiggmklpkqapyz.supabase.co";
+    var KEY = "sb_publishable_MMlGHXZ72ginONns81RTTA_hjozOzti";
+    var FOTOS = SB + "/storage/v1/object/public/fotos/";
+    var CHAVE = "am2027_presenca";
+
+  /* Pix estático (BR Code EMV) */
+  var Pix = (function () {
+    function semAcento(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+    function limpo(s, max) { return semAcento(s).replace(/[^A-Za-z0-9 .,\-]/g, "").replace(/\s+/g, " ").trim().slice(0, max).trim(); }
+    function cpfOk(d) {
+      if (!/^\d{11}$/.test(d) || /^(\d)\1+$/.test(d)) return false;
+      for (var t = 9; t < 11; t++) {
+        var s = 0; for (var i = 0; i < t; i++) s += +d[i] * (t + 1 - i);
+        if (((s * 10) % 11) % 10 !== +d[t]) return false;
+      }
+      return true;
+    }
+    function cnpjOk(d) {
+      if (!/^\d{14}$/.test(d) || /^(\d)\1+$/.test(d)) return false;
+      function dv(n) {
+        var p = n === 12 ? [5,4,3,2,9,8,7,6,5,4,3,2] : [6,5,4,3,2,9,8,7,6,5,4,3,2], s = 0;
+        for (var i = 0; i < n; i++) s += +d[i] * p[i];
+        var r = s % 11; return r < 2 ? 0 : 11 - r;
+      }
+      return dv(12) === +d[12] && dv(13) === +d[13];
+    }
+    /* devolve {tipo, chave} normalizada ou {erro} */
+    function chave(bruta) {
+      var s = String(bruta || "").trim();
+      if (!s) return { erro: "Informe a chave Pix." };
+      if (s.indexOf("@") >= 0) {
+        s = s.toLowerCase();
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 77 ? { tipo: "e-mail", chave: s } : { erro: "E-mail inválido." };
+      }
+      if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s)) return { tipo: "chave aleatória", chave: s.toLowerCase() };
+      var d = s.replace(/\D/g, "");
+      if (s.charAt(0) === "+") {
+        return /^55\d{10,11}$/.test(d) ? { tipo: "telefone", chave: "+" + d } : { erro: "Telefone deve estar no formato +55 DDD número, ex.: +55 63 99999-9999." };
+      }
+      if (/[^\d.\-\/\s()]/.test(s)) return { erro: "Chave não reconhecida. Use CPF, CNPJ, e-mail, telefone (+55...) ou chave aleatória." };
+      if (d.length === 11) return cpfOk(d) ? { tipo: "CPF", chave: d } : { erro: "CPF inválido. Se for telefone, comece com +55." };
+      if (d.length === 14) return cnpjOk(d) ? { tipo: "CNPJ", chave: d } : { erro: "CNPJ inválido." };
+      if (d.length === 10 || d.length === 13) return { erro: "Se for telefone, escreva com +55 na frente, ex.: +55 63 99999-9999." };
+      return { erro: "Chave não reconhecida. Use CPF, CNPJ, e-mail, telefone (+55...) ou chave aleatória." };
+    }
+    function campo(id, v) { var n = String(v.length); return id + (n.length < 2 ? "0" + n : n) + v; }
+    function crc16(s) {
+      var crc = 0xFFFF;
+      for (var i = 0; i < s.length; i++) {
+        crc ^= s.charCodeAt(i) << 8;
+        for (var b = 0; b < 8; b++) crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF;
+      }
+      return ("000" + crc.toString(16).toUpperCase()).slice(-4);
+    }
+    /* dados = {chave, nome, cidade, mensagem}; devolve {payload, nome, cidade, tipo} ou {erro} */
+    function payload(dados) {
+      var k = chave(dados && dados.chave);
+      if (k.erro) return k;
+      var nome = limpo(dados.nome, 25), cidade = limpo(dados.cidade || "PALMAS", 15).toUpperCase();
+      if (nome.length < 2) return { erro: "Informe o nome do recebedor." };
+      if (!cidade) return { erro: "Informe a cidade." };
+      var conta = campo("00", "br.gov.bcb.pix") + campo("01", k.chave);
+      var msg = limpo(dados.mensagem, 99 - conta.length - 4);
+      if (msg) conta += campo("02", msg);
+      var p = campo("00", "01") + campo("26", conta) + campo("52", "0000") + campo("53", "986") + campo("58", "BR") +
+              campo("59", nome) + campo("60", cidade) + campo("62", campo("05", "***")) + "6304";
+      return { payload: p + crc16(p), nome: nome, cidade: cidade, tipo: k.tipo, chave: k.chave };
+    }
+    return { chave: chave, payload: payload, crc16: crc16 };
+  })();
+
+    function inserir(tabela, dados) {
+      return fetch(SB + "/rest/v1/" + tabela, {
+        method: "POST",
+        headers: { apikey: KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify(dados)
+      }).then(function (r) {
+        if (!r.ok) throw new Error("http " + r.status);
+      });
+    }
+    function lembrar(v) { try { localStorage.setItem(CHAVE, JSON.stringify(v)); } catch (e) {} }
+    function lembrado() { try { return JSON.parse(localStorage.getItem(CHAVE) || "null"); } catch (e) { return null; } }
+    function aviso(form, tipo, txt) {
+      var p = form.querySelector(".aviso");
+      p.className = "aviso " + tipo; p.textContent = txt; p.hidden = !txt;
+    }
+    function inteiro(v, min, max, padrao) {
+      var n = parseInt(v, 10);
+      if (isNaN(n)) n = padrao;
+      return Math.min(max, Math.max(min, n));
+    }
+    var ERRO = "Não foi possível enviar agora. Verifique sua conexão e tente de novo em instantes.";
+
+    /* confirmação de presença */
+    var rsvp = document.getElementById("rsvp");
+    var feito = document.getElementById("rsvp-feito");
+    var qtd = document.getElementById("rsvp-qtd");
+    function mostrarFeito(v) {
+      document.getElementById("rsvp-feito-txt").textContent = v.vai
+        ? "Presença confirmada para " + v.nome + ". Obrigado, esperamos você!"
+        : "Resposta registrada para " + v.nome + ". Obrigado por avisar!";
+      feito.hidden = false; rsvp.hidden = true;
+    }
+    var ja = lembrado();
+    if (ja && ja.nome) {
+      mostrarFeito(ja);
+      document.getElementById("rsvp-feito-txt").textContent += " Quer enviar outra confirmação (por exemplo, de outra família)?";
+    }
+    document.getElementById("rsvp-outra").addEventListener("click", function () {
+      feito.hidden = true; rsvp.hidden = false; rsvp.reset(); aviso(rsvp, "", ""); qtd.hidden = false;
+      rsvp.elements.nome.focus();
+    });
+    rsvp.addEventListener("change", function (e) {
+      if (e.target.name === "vai") qtd.hidden = e.target.value !== "sim";
+    });
+    rsvp.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = rsvp.elements, btn = rsvp.querySelector("button[type=submit]");
+      var nome = f.nome.value.trim().replace(/\s+/g, " ");
+      var vai = rsvp.querySelector("input[name=vai]:checked").value === "sim";
+      if (nome.length < 2) { aviso(rsvp, "erro", "Informe seu nome completo."); f.nome.focus(); return; }
+      var dados = {
+        nome: nome.slice(0, 120), vai: vai,
+        adultos: vai ? inteiro(f.adultos.value, 1, 20, 1) : 0,
+        criancas: vai ? inteiro(f.criancas.value, 0, 20, 0) : 0,
+        telefone: f.telefone.value.trim().slice(0, 30) || null,
+        mensagem: f.mensagem.value.trim().slice(0, 500) || null,
+        origem: "site"
+      };
+      btn.disabled = true; btn.textContent = "Enviando..."; aviso(rsvp, "", "");
+      var envio = f.site.value ? Promise.resolve() : inserir("presencas", dados);
+      envio.then(function () {
+        var v = { nome: dados.nome, vai: vai, quando: new Date().toISOString() };
+        lembrar(v); mostrarFeito(v);
+        feito.scrollIntoView({ block: "center", behavior: "smooth" });
+      }).catch(function () {
+        aviso(rsvp, "erro", ERRO);
+      }).then(function () {
+        btn.disabled = false; btn.textContent = "Confirmar presença";
+      });
+    });
+
+    /* recados */
+    var rec = document.getElementById("recado");
+    rec.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = rec.elements, btn = rec.querySelector("button[type=submit]");
+      var nome = f.nome.value.trim().replace(/\s+/g, " "), msg = f.mensagem.value.trim();
+      if (nome.length < 2) { aviso(rec, "erro", "Informe seu nome."); f.nome.focus(); return; }
+      if (msg.length < 2) { aviso(rec, "erro", "Escreva o seu recado."); f.mensagem.focus(); return; }
+      btn.disabled = true; btn.textContent = "Enviando..."; aviso(rec, "", "");
+      var envio = f.site.value ? Promise.resolve() : inserir("recados", { nome: nome.slice(0, 120), mensagem: msg.slice(0, 1000) });
+      envio.then(function () {
+        rec.reset();
+        aviso(rec, "ok", "Recado enviado! Os noivos vão adorar ler. Obrigado pelo carinho.");
+      }).catch(function () {
+        aviso(rec, "erro", ERRO);
+      }).then(function () {
+        btn.disabled = false; btn.textContent = "Enviar recado";
+      });
+    });
+
+    /* fotos escolhidas pelos noivos no painel */
+    function trocar(url, imgs) {
+      if (typeof url !== "string" || url.indexOf(FOTOS) !== 0) return;
+      var nova = new Image();
+      nova.onload = function () {
+        imgs.forEach(function (img) {
+          if (!img) return;
+          img.removeAttribute("srcset"); img.src = url; img.classList.add("nova");
+        });
+      };
+      nova.src = url;
+    }
+    /* Pix: só aparece quando os noivos cadastram a chave no painel */
+    function carregarScript(src) {
+      return new Promise(function (ok, falha) {
+        var s = document.createElement("script"); s.src = src; s.async = true;
+        s.onload = ok; s.onerror = falha; document.head.appendChild(s);
+      });
+    }
+    function mostrarPix(cfg) {
+      if (!cfg || !cfg.chave) return;
+      var r = Pix.payload(cfg);
+      if (r.erro) return;
+      carregarScript("https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js").then(function () {
+        var qr = window.qrcode(0, "M"); qr.addData(r.payload); qr.make();
+        document.getElementById("pix-qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+        document.getElementById("pix-nome").textContent = r.nome;
+        var caixa = document.getElementById("pix"), msg = document.getElementById("pix-aviso");
+        caixa.hidden = false;
+        document.getElementById("pix-copiar").addEventListener("click", function () {
+          function ok() { msg.textContent = "Código copiado! Agora abra o app do banco, escolha Pix copia e cola e cole."; }
+          function manual() {
+            var t = document.createElement("textarea"); t.value = r.payload; t.setAttribute("readonly", "");
+            t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select();
+            var feito = false; try { feito = document.execCommand("copy"); } catch (e) {}
+            t.remove();
+            if (feito) ok(); else { msg.textContent = "Não consegui copiar sozinho. Código: " + r.payload; }
+          }
+          if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(r.payload).then(ok, manual);
+          else manual();
+        });
+      }).catch(function () {});
+    }
+
+    fetch(SB + "/rest/v1/config?chave=in.(fotos,pix)&select=chave,valor", { headers: { apikey: KEY } })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (linhas) {
+        var cfg = {};
+        (linhas || []).forEach(function (l) { cfg[l.chave] = l.valor; });
+        var v = cfg.fotos;
+        if (v) {
+          trocar(v.capa, [document.querySelector(".capa .fundo img"), document.querySelector(".retrato img")]);
+          trocar(v.local, [document.querySelector("#recepcao figure img")]);
+        }
+        mostrarPix(cfg.pix);
+      })
+      .catch(function () {});
+
+    /* contador de visitas: só números, sem nome, IP ou localização */
+    function registrarVisita() {
+      try { if (new URLSearchParams(location.search).has("teste")) return; } catch (e) {}
+      function novoId() {
+        if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+          var r = Math.random() * 16 | 0; return (c === "x" ? r : (r & 3 | 8)).toString(16);
+        });
+      }
+      var id = null;
+      try { id = localStorage.getItem("am2027_visitante"); } catch (e) {}
+      if (!id || !/^[0-9a-f-]{36}$/i.test(id)) {
+        id = novoId();
+        try { localStorage.setItem("am2027_visitante", id); } catch (e) {}
+      }
+      var ua = navigator.userAgent || "";
+      var tablet = /iPad|Tablet/i.test(ua) || (/Android/i.test(ua) && !/Mobile/i.test(ua)) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var disp = tablet ? "tablet" : (/Mobi|iPhone|iPod|Android/i.test(ua) ? "celular" : "computador");
+      var origem = null;
+      try { if (document.referrer) { var h = new URL(document.referrer).hostname; if (h && h !== location.hostname) origem = h.slice(0, 100); } } catch (e) {}
+      fetch(SB + "/rest/v1/visitas", {
+        method: "POST", keepalive: true,
+        headers: { apikey: KEY, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({ visitante: id, dispositivo: disp, origem: origem, pagina: (location.pathname || "/").slice(0, 100) })
+      }).catch(function () {});
+    }
+    function depois() {
+      if (window.requestIdleCallback) window.requestIdleCallback(registrarVisita, { timeout: 4000 });
+      else setTimeout(registrarVisita, 1200);
+    }
+    if (document.readyState === "complete") depois(); else window.addEventListener("load", depois);
   })();
 </script>
 </body>
