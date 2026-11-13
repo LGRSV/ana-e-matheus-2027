@@ -127,6 +127,62 @@
   .pix .recebedor{margin:0 0 14px; font-size:15px}
   .pix .btn{cursor:pointer; justify-content:center}
   .pix .nota{min-height:1.4em}
+  /* lista de presentes */
+  .estreito{max-width:720px; margin:0 auto}
+  .presentes-grade{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; margin:28px 0 0; text-align:left}
+  .presente{background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; min-width:0}
+  .presente .img{aspect-ratio:1; background:var(--bg2); display:grid; place-items:center; color:var(--taupe); overflow:hidden}
+  .presente .img img{width:100%; height:100%; object-fit:cover}
+  .presente .img svg, .janela .j-img svg{width:46px; height:46px}
+  .presente .corpo{padding:12px 12px 14px; display:flex; flex-direction:column; gap:6px; flex:1}
+  .presente h3{font:600 15px/1.3 var(--sans); margin:0; word-break:break-word}
+  .presente .preco{font:500 24px/1.1 var(--serif); color:var(--ink); font-variant-numeric:lining-nums; margin:0}
+  .presente .preco small{display:block; margin-top:3px; font:500 12px/1.2 var(--sans); color:var(--soft)}
+  .presente .cotas{font-size:12px; line-height:1.4; color:var(--soft); margin:0}
+  .prog{height:6px; border-radius:999px; background:var(--bg2); overflow:hidden}
+  .prog span{display:block; height:100%; background:var(--accent); border-radius:999px}
+  .presente .btn{margin-top:auto; justify-content:center; width:100%; cursor:pointer; padding:10px 12px; font-size:13px}
+  .presente.completo .img{opacity:.6}
+  .presente.completo .btn{background:var(--bg2); border-color:var(--line); color:var(--soft); cursor:default}
+  button.btn{font-family:var(--sans)}
+
+  /* janela do presente */
+  .janela{border:0; padding:0; border-radius:18px; width:min(440px, calc(100% - 24px)); max-height:calc(100vh - 24px); max-height:calc(100dvh - 24px);
+          overflow:auto; background:#fff; color:var(--ink); box-shadow:0 30px 80px -20px rgba(0,0,0,.55)}
+  .janela::backdrop{background:rgba(15,20,26,.62)}
+  .janela .fechar{position:absolute; right:10px; top:10px; z-index:2; width:40px; height:40px; border-radius:50%; border:1px solid var(--line);
+                  background:rgba(255,255,255,.94); color:var(--ink); font:400 26px/1 var(--sans); cursor:pointer}
+  .janela .j-img{aspect-ratio:16 / 9; background:var(--bg2); display:grid; place-items:center; color:var(--taupe); overflow:hidden}
+  .janela .j-img img{width:100%; height:100%; object-fit:cover}
+  .janela .conteudo{padding:20px 20px 22px; display:grid; gap:16px; text-align:center}
+  .janela h3{font:400 30px/1.15 var(--serif); margin:0; padding:0 30px}
+  .janela .j-desc{margin:6px 0 0; color:var(--soft); font-size:14px; line-height:1.5}
+  .janela .qtd{display:flex; align-items:center; justify-content:center; gap:14px; font-weight:600; font-size:14px; color:var(--soft)}
+  .janela .qtd button{width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--bg); color:var(--ink); font:500 22px/1 var(--sans); cursor:pointer}
+  .janela .qtd button[disabled]{opacity:.35; cursor:default}
+  .janela .qtd output{font:700 20px/1 var(--sans); color:var(--ink); min-width:2ch}
+  .janela .j-total{margin:0; display:grid; gap:2px}
+  .janela .j-total small{font-size:13px; color:var(--soft)}
+  .janela .j-total strong{font:500 36px/1.1 var(--serif); font-variant-numeric:lining-nums}
+  .janela .passo{margin:0; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); font-weight:700}
+  .janela .qr{width:210px; max-width:100%; margin:4px auto 10px; min-height:210px}
+  .janela .qr svg{display:block; width:100%; height:auto}
+  .janela .j-pix .btn{justify-content:center; cursor:pointer}
+  .janela .j-pix .nota{margin-top:8px; min-height:1.3em}
+  .janela .form{margin:0; padding:18px 0 0; border:0; border-top:1px solid var(--line); border-radius:0; box-shadow:none; background:transparent; gap:12px}
+  .janela .feito{margin:0; border:0; padding:4px 0 0; background:transparent}
+
+  /* mural de recados */
+  .mural{margin-top:44px; text-align:left}
+  .mural h3{font:400 32px/1.2 var(--serif); text-align:center; margin:0 0 20px}
+  .mural-lista{display:grid; gap:12px}
+  .recado-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px 16px}
+  .recado-card::before{content:"\201C"; display:block; height:22px; font:400 54px/1 var(--serif); color:var(--taupe)}
+  .recado-card p{margin:0 0 10px; white-space:pre-wrap; word-break:break-word; font-size:15px; line-height:1.6}
+  .recado-card .quem{font:italic 500 20px/1.2 var(--serif); color:var(--accent)}
+  .recado-card .quem small{display:block; margin-top:2px; font:500 12px/1.3 var(--sans); color:var(--soft); font-style:normal}
+  .mural .mais{margin:18px auto 0; display:flex; cursor:pointer}
+
   .retrato img.nova{transform:none; object-position:50% 35%}
   .capa .fundo img.nova{object-position:50% 35%}
 
@@ -150,6 +206,10 @@
     .local{grid-template-columns:1fr 1fr; gap:48px}
     .local figure img{aspect-ratio:1 / 1; object-position:50% 55%}
     .wrap.largo{max-width:980px}
+    .mural-lista{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:600px){
+    .presentes-grade{grid-template-columns:repeat(auto-fit, minmax(170px, 228px)); justify-content:center; gap:16px}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -228,16 +288,19 @@
   </section>
 
   <section id="presentes" aria-labelledby="t-presentes">
-    <div class="wrap centro">
-      <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
-      <h2 id="t-presentes">Lista de presentes</h2>
-      <p>A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para a nossa tão sonhada lua de mel.</p>
-      <div class="botoes centro" style="margin-top:24px">
-        <a class="btn cheio" target="_blank" rel="noopener" href="https://noivos.casar.com/ana-e-matheus-2027-01-07#presentes">Ver a lista de presentes</a>
+    <div class="wrap largo centro">
+      <div class="estreito">
+        <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
+        <h2 id="t-presentes">Lista de presentes</h2>
+        <p>A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para a nossa tão sonhada lua de mel.</p>
       </div>
-      <p class="nota">Abre a lista oficial do casal em outra aba, onde o presente é escolhido e pago com segurança.</p>
+      <div class="presentes-grade" id="lista-presentes" hidden></div>
+      <div class="botoes centro" style="margin-top:24px">
+        <a class="btn cheio" id="btn-casar" target="_blank" rel="noopener" href="https://noivos.casar.com/ana-e-matheus-2027-01-07#presentes">Ver a lista de presentes</a>
+      </div>
+      <p class="nota" id="nota-casar">Abre a lista oficial do casal em outra aba, onde o presente é escolhido e pago com segurança.</p>
       <div class="pix" id="pix" hidden>
-        <h3>Ou presenteie por Pix</h3>
+        <h3 id="pix-titulo">Ou presenteie por Pix</h3>
         <p>Aponte a câmera do app do seu banco para o QR code, ou copie o código e cole na opção “Pix copia e cola”. O valor você escolhe no app.</p>
         <div class="qr" id="pix-qr" role="img" aria-label="QR code do Pix"></div>
         <p class="recebedor">Recebedor: <strong id="pix-nome"></strong></p>
@@ -296,9 +359,52 @@
         <p class="aviso" role="status" aria-live="polite" hidden></p>
         <button class="btn cheio" type="submit">Enviar recado</button>
       </form>
+      <div class="mural" id="mural" hidden>
+        <h3>Mural de recados</h3>
+        <div class="mural-lista" id="mural-lista"></div>
+        <button type="button" class="btn mais" id="mural-mais" hidden>Ver mais recados</button>
+      </div>
     </div>
   </section>
 </main>
+
+<dialog class="janela" id="janela" aria-labelledby="j-nome">
+  <button type="button" class="fechar" id="j-fechar" aria-label="Fechar">×</button>
+  <div class="j-img" id="j-img"></div>
+  <div class="conteudo">
+    <div>
+      <h3 id="j-nome"></h3>
+      <p class="j-desc" id="j-desc" hidden></p>
+    </div>
+    <div class="qtd" id="j-qtd">
+      <span>Cotas</span>
+      <button type="button" data-d="-1" aria-label="Uma cota a menos">−</button>
+      <output id="j-n" aria-live="polite">1</output>
+      <button type="button" data-d="1" aria-label="Uma cota a mais">+</button>
+    </div>
+    <p class="j-total"><small id="j-conta"></small><strong id="j-total"></strong></p>
+    <div class="j-pix">
+      <p class="passo">1 · Pague com Pix</p>
+      <div class="qr" id="j-qr" role="img" aria-label="QR code do Pix com o valor do presente"></div>
+      <button type="button" class="btn cheio" id="j-copiar">Copiar código Pix (copia e cola)</button>
+      <p class="nota" id="j-copiado" role="status" aria-live="polite"></p>
+    </div>
+    <form class="form" id="j-form" novalidate>
+      <p class="passo">2 · Avise os noivos</p>
+      <label class="campo"><span>Seu nome</span>
+        <input name="nome" required minlength="2" maxlength="120" autocomplete="name"></label>
+      <label class="campo"><span>Mensagem <small>(opcional)</small></span>
+        <textarea name="mensagem" maxlength="1000" rows="3" placeholder="Um carinho junto com o presente"></textarea></label>
+      <label class="isca" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
+      <p class="aviso" role="status" aria-live="polite" hidden></p>
+      <button class="btn" type="submit">Já fiz o Pix, avisar os noivos</button>
+    </form>
+    <div class="feito" id="j-feito" hidden>
+      <p id="j-feito-txt"></p>
+      <button type="button" class="btn" id="j-ok">Fechar</button>
+    </div>
+  </div>
+</dialog>
 
 <footer>
   <svg class="mono" aria-hidden="true"><use href="#mono"/></svg>
@@ -376,7 +482,7 @@
       }
       return ("000" + crc.toString(16).toUpperCase()).slice(-4);
     }
-    /* dados = {chave, nome, cidade, mensagem}; devolve {payload, nome, cidade, tipo} ou {erro} */
+    /* dados = {chave, nome, cidade, mensagem, valor?}; devolve {payload, nome, cidade, tipo} ou {erro} */
     function payload(dados) {
       var k = chave(dados && dados.chave);
       if (k.erro) return k;
@@ -386,7 +492,9 @@
       var conta = campo("00", "br.gov.bcb.pix") + campo("01", k.chave);
       var msg = limpo(dados.mensagem, 99 - conta.length - 4);
       if (msg) conta += campo("02", msg);
-      var p = campo("00", "01") + campo("26", conta) + campo("52", "0000") + campo("53", "986") + campo("58", "BR") +
+      var valor = Number(dados.valor) > 0 ? Number(dados.valor).toFixed(2) : "";
+      if (valor.length > 13) return { erro: "Valor alto demais para o Pix." };
+      var p = campo("00", "01") + campo("26", conta) + campo("52", "0000") + campo("53", "986") + (valor ? campo("54", valor) : "") + campo("58", "BR") +
               campo("59", nome) + campo("60", cidade) + campo("62", campo("05", "***")) + "6304";
       return { payload: p + crc16(p), nome: nome, cidade: cidade, tipo: k.tipo, chave: k.chave };
     }
@@ -476,7 +584,8 @@
       var envio = f.site.value ? Promise.resolve() : inserir("recados", { nome: nome.slice(0, 120), mensagem: msg.slice(0, 1000) });
       envio.then(function () {
         rec.reset();
-        aviso(rec, "ok", "Recado enviado! Os noivos vão adorar ler. Obrigado pelo carinho.");
+        aviso(rec, "ok", "Recado enviado! Os noivos vão adorar ler. Obrigado pelo carinho." +
+          (muralAtivo ? " Ele aparece no mural depois que os noivos aprovarem." : ""));
       }).catch(function () {
         aviso(rec, "erro", ERRO);
       }).then(function () {
@@ -497,50 +606,214 @@
       nova.src = url;
     }
     /* Pix: só aparece quando os noivos cadastram a chave no painel */
+    var QR_URL = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js", qrPromessa = null;
     function carregarScript(src) {
       return new Promise(function (ok, falha) {
         var s = document.createElement("script"); s.src = src; s.async = true;
         s.onload = ok; s.onerror = falha; document.head.appendChild(s);
       });
     }
+    function carregarQR() {
+      if (window.qrcode) return Promise.resolve();
+      if (!qrPromessa) qrPromessa = carregarScript(QR_URL).catch(function (e) { qrPromessa = null; throw e; });
+      return qrPromessa;
+    }
+    function svgQR(payload) {
+      var qr = window.qrcode(0, "M"); qr.addData(payload); qr.make();
+      return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+    }
+    /* copia o código Pix; avisa no elemento msg */
+    function copiarPix(payload, msg) {
+      function ok() { msg.textContent = "Código copiado! Agora abra o app do banco, escolha Pix copia e cola e cole."; }
+      function manual() {
+        var t = document.createElement("textarea"); t.value = payload; t.setAttribute("readonly", "");
+        t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select();
+        var feito = false; try { feito = document.execCommand("copy"); } catch (e) {}
+        t.remove();
+        if (feito) ok(); else { msg.textContent = "Não consegui copiar sozinho. Código: " + payload; }
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(payload).then(ok, manual);
+      else manual();
+    }
+    function pixValido(cfg) { return cfg && cfg.chave && !Pix.payload(cfg).erro ? cfg : null; }
     function mostrarPix(cfg) {
-      if (!cfg || !cfg.chave) return;
+      if (!pixValido(cfg)) return;
       var r = Pix.payload(cfg);
-      if (r.erro) return;
-      carregarScript("https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js").then(function () {
-        var qr = window.qrcode(0, "M"); qr.addData(r.payload); qr.make();
-        document.getElementById("pix-qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+      carregarQR().then(function () {
+        document.getElementById("pix-qr").innerHTML = svgQR(r.payload);
         document.getElementById("pix-nome").textContent = r.nome;
-        var caixa = document.getElementById("pix"), msg = document.getElementById("pix-aviso");
-        caixa.hidden = false;
-        document.getElementById("pix-copiar").addEventListener("click", function () {
-          function ok() { msg.textContent = "Código copiado! Agora abra o app do banco, escolha Pix copia e cola e cole."; }
-          function manual() {
-            var t = document.createElement("textarea"); t.value = r.payload; t.setAttribute("readonly", "");
-            t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select();
-            var feito = false; try { feito = document.execCommand("copy"); } catch (e) {}
-            t.remove();
-            if (feito) ok(); else { msg.textContent = "Não consegui copiar sozinho. Código: " + r.payload; }
-          }
-          if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(r.payload).then(ok, manual);
-          else manual();
-        });
+        document.getElementById("pix").hidden = false;
+        document.getElementById("pix-copiar").addEventListener("click", function () { copiarPix(r.payload, document.getElementById("pix-aviso")); });
       }).catch(function () {});
     }
 
-    fetch(SB + "/rest/v1/config?chave=in.(fotos,pix)&select=chave,valor", { headers: { apikey: KEY } })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (linhas) {
-        var cfg = {};
-        (linhas || []).forEach(function (l) { cfg[l.chave] = l.valor; });
-        var v = cfg.fotos;
-        if (v) {
-          trocar(v.capa, [document.querySelector(".capa .fundo img"), document.querySelector(".retrato img")]);
-          trocar(v.local, [document.querySelector("#recepcao figure img")]);
-        }
-        mostrarPix(cfg.pix);
-      })
-      .catch(function () {});
+    /* lista de presentes com cotas (cadastrada no painel) */
+    var CASAR = "https://noivos.casar.com/ana-e-matheus-2027-01-07#presentes";
+    var ICONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="1.5"/><path d="M3 12h18M12 8v13M12 8c-1.5-3-5-4-5-1.5S10 8 12 8zm0 0c1.5-3 5-4 5-1.5S14 8 12 8z"/></svg>';
+    var fmtMoeda = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    function moeda(v) { return fmtMoeda.format(Number(v) || 0); }
+    function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+    function fotoOk(u) { return typeof u === "string" && u.length <= 500 && /^https:\/\/[^\s"'<>()\\]+$/.test(u); }
+    function imagemPresente(caixa, p) {
+      caixa.textContent = "";
+      if (fotoOk(p.imagem)) {
+        var im = new Image(); im.alt = ""; im.loading = "lazy"; im.decoding = "async"; im.referrerPolicy = "no-referrer";
+        im.onerror = function () { caixa.innerHTML = ICONE; };
+        im.src = p.imagem; caixa.appendChild(im);
+      } else caixa.innerHTML = ICONE;
+    }
+    var pixCfg = null, cartoes = {};
+    function restam(p) { return Math.max(0, p.cotas - p.cotas_dadas); }
+    function cartaoPresente(p) {
+      var completo = restam(p) === 0;
+      var card = el("article", "presente" + (completo ? " completo" : ""));
+      var img = el("div", "img"); imagemPresente(img, p); card.appendChild(img);
+      var corpo = el("div", "corpo");
+      corpo.appendChild(el("h3", null, p.nome));
+      var preco = el("p", "preco", moeda(p.valor));
+      if (p.cotas > 1) preco.appendChild(el("small", null, "a cota"));
+      corpo.appendChild(preco);
+      if (p.cotas > 1) {
+        var prog = el("div", "prog"), barra = el("span");
+        barra.style.width = Math.min(100, Math.round(p.cotas_dadas / p.cotas * 100)) + "%";
+        prog.appendChild(barra); corpo.appendChild(prog);
+        corpo.appendChild(el("p", "cotas", completo ? "Todas as cotas foram presenteadas" : "Restam " + restam(p) + " de " + p.cotas + " cotas"));
+      } else if (completo) corpo.appendChild(el("p", "cotas", "Já foi presenteado"));
+      var b;
+      if (completo) { b = el("button", "btn", "Presenteado ♥"); b.type = "button"; b.disabled = true; }
+      else if (pixCfg) { b = el("button", "btn cheio", "Presentear"); b.type = "button"; b.addEventListener("click", function () { abrirPresente(p); }); }
+      else { b = el("a", "btn cheio", "Presentear"); b.href = CASAR; b.target = "_blank"; b.rel = "noopener"; }
+      corpo.appendChild(b);
+      card.appendChild(corpo);
+      return card;
+    }
+    function mostrarPresentes(lista, pix) {
+      if (!Array.isArray(lista) || !lista.length) return;
+      pixCfg = pixValido(pix);
+      var grade = document.getElementById("lista-presentes");
+      lista.forEach(function (p) {
+        if (!p || !p.id || !p.nome || !(Number(p.valor) > 0)) return;
+        p.valor = Number(p.valor); p.cotas = Math.max(1, parseInt(p.cotas, 10) || 1); p.cotas_dadas = Math.max(0, parseInt(p.cotas_dadas, 10) || 0);
+        cartoes[p.id] = cartaoPresente(p);
+        grade.appendChild(cartoes[p.id]);
+      });
+      if (!grade.children.length) return;
+      grade.hidden = false;
+      var bc = document.getElementById("btn-casar");
+      bc.classList.remove("cheio");
+      bc.textContent = pixCfg ? "Prefere cartão? Ver a lista no casar.com" : "Ver a lista no casar.com";
+      document.getElementById("nota-casar").textContent = pixCfg
+        ? "Nos presentes acima o pagamento é por Pix, direto para os noivos. No casar.com dá para pagar com cartão de crédito."
+        : "O presente é escolhido e pago com segurança no casar.com.";
+      document.getElementById("pix-titulo").textContent = "Ou um Pix de qualquer valor";
+    }
+
+    /* janela do presente: escolhe as cotas, paga com Pix e avisa os noivos */
+    var jan = document.getElementById("janela"), jForm = document.getElementById("j-form");
+    var jAtual = null, jN = 1, jMax = 1, jPayload = "";
+    function jAtualizar() {
+      var p = jAtual, total = Math.round(p.valor * jN * 100) / 100;
+      document.getElementById("j-n").textContent = jN;
+      document.getElementById("j-total").textContent = moeda(total);
+      document.getElementById("j-conta").textContent = p.cotas > 1 ? (jN === 1 ? "1 cota" : jN + " cotas × " + moeda(p.valor)) : "Valor do presente";
+      jan.querySelector("[data-d='-1']").disabled = jN <= 1;
+      jan.querySelector("[data-d='1']").disabled = jN >= jMax;
+      var r = Pix.payload({ chave: pixCfg.chave, nome: pixCfg.nome, cidade: pixCfg.cidade, mensagem: "Presente - " + p.nome, valor: total });
+      jPayload = r.payload || "";
+      var qr = document.getElementById("j-qr");
+      document.getElementById("j-copiado").textContent = "";
+      if (!jPayload) { qr.textContent = ""; return; }
+      carregarQR().then(function () { if (jAtual === p) qr.innerHTML = svgQR(jPayload); })
+        .catch(function () { qr.textContent = "Não consegui gerar o QR code. Use o botão para copiar o código."; });
+    }
+    function abrirPresente(p) {
+      jAtual = p; jN = 1; jMax = Math.max(1, Math.min(20, restam(p)));
+      imagemPresente(document.getElementById("j-img"), p);
+      document.getElementById("j-nome").textContent = p.nome;
+      var d = document.getElementById("j-desc"); d.textContent = p.descricao || ""; d.hidden = !p.descricao;
+      document.getElementById("j-qtd").hidden = jMax <= 1;
+      jForm.reset(); aviso(jForm, "", ""); jForm.hidden = false;
+      document.getElementById("j-feito").hidden = true;
+      jAtualizar();
+      if (typeof jan.showModal === "function") jan.showModal(); else jan.setAttribute("open", "");
+      jan.scrollTop = 0;
+    }
+    function fecharJanela() { if (typeof jan.close === "function") jan.close(); else jan.removeAttribute("open"); }
+    document.getElementById("j-fechar").addEventListener("click", fecharJanela);
+    document.getElementById("j-ok").addEventListener("click", fecharJanela);
+    jan.addEventListener("click", function (e) { if (e.target === jan) fecharJanela(); });
+    jan.querySelectorAll("[data-d]").forEach(function (b) {
+      b.addEventListener("click", function () { jN = Math.min(jMax, Math.max(1, jN + Number(b.dataset.d))); jAtualizar(); });
+    });
+    document.getElementById("j-copiar").addEventListener("click", function () {
+      if (jPayload) copiarPix(jPayload, document.getElementById("j-copiado"));
+    });
+    jForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = jForm.elements, btn = jForm.querySelector("button[type=submit]"), p = jAtual, n = jN;
+      var nome = f.nome.value.trim().replace(/\s+/g, " ");
+      if (nome.length < 2) { aviso(jForm, "erro", "Informe seu nome."); f.nome.focus(); return; }
+      btn.disabled = true; btn.textContent = "Enviando..."; aviso(jForm, "", "");
+      var dados = { presente_id: p.id, nome: nome.slice(0, 120), mensagem: f.mensagem.value.trim().slice(0, 1000) || null, cotas: n };
+      var envio = f.site.value ? Promise.resolve() : inserir("presentes_recebidos", dados);
+      envio.then(function () {
+        p.cotas_dadas += n;
+        var novo = cartaoPresente(p); cartoes[p.id].replaceWith(novo); cartoes[p.id] = novo;
+        document.getElementById("j-feito-txt").textContent = "Obrigado, " + nome.split(" ")[0] + "! Os noivos foram avisados do seu presente: " +
+          p.nome + (n > 1 ? " (" + n + " cotas)" : "") + ", " + moeda(p.valor * n) + ".";
+        jForm.hidden = true; document.getElementById("j-feito").hidden = false;
+      }).catch(function () {
+        aviso(jForm, "erro", ERRO);
+      }).then(function () {
+        btn.disabled = false; btn.textContent = "Já fiz o Pix, avisar os noivos";
+      });
+    });
+
+    /* mural de recados (os noivos escolhem no painel quais aparecem) */
+    var muralAtivo = false;
+    var fmtDiaMural = new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long", year: "numeric", timeZone: "America/Araguaina" });
+    function mostrarMural(lista) {
+      if (!Array.isArray(lista)) return;
+      muralAtivo = true;
+      lista = lista.filter(function (r) { return r && r.nome && r.mensagem; });
+      if (!lista.length) return;
+      var alvo = document.getElementById("mural-lista"), mais = document.getElementById("mural-mais"), POR = 6;
+      lista.forEach(function (r, i) {
+        var c = el("article", "recado-card");
+        c.appendChild(el("p", null, r.mensagem));
+        var q = el("div", "quem", r.nome);
+        try { q.appendChild(el("small", null, fmtDiaMural.format(new Date(r.criado_em)))); } catch (e) {}
+        c.appendChild(q);
+        if (i >= POR) c.hidden = true;
+        alvo.appendChild(c);
+      });
+      document.getElementById("mural").hidden = false;
+      if (lista.length > POR) {
+        mais.textContent = "Ver mais recados (" + (lista.length - POR) + ")"; mais.hidden = false;
+        mais.addEventListener("click", function () { alvo.querySelectorAll(".recado-card[hidden]").forEach(function (c) { c.hidden = false; }); mais.hidden = true; });
+      }
+    }
+
+    function lerJSON(caminho) {
+      return fetch(SB + "/rest/v1/" + caminho, { headers: { apikey: KEY } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
+    }
+    Promise.all([
+      lerJSON("config?chave=in.(fotos,pix)&select=chave,valor"),
+      lerJSON("presentes?select=id,nome,descricao,valor,cotas,cotas_dadas,imagem&order=ordem.asc,criado_em.asc")
+    ]).then(function (res) {
+      var cfg = {};
+      (res[0] || []).forEach(function (l) { cfg[l.chave] = l.valor; });
+      var v = cfg.fotos;
+      if (v) {
+        trocar(v.capa, [document.querySelector(".capa .fundo img"), document.querySelector(".retrato img")]);
+        trocar(v.local, [document.querySelector("#recepcao figure img")]);
+      }
+      mostrarPix(cfg.pix);
+      mostrarPresentes(res[1], cfg.pix);
+    });
+    lerJSON("recados?select=nome,mensagem,criado_em&publicado=eq.true&order=criado_em.desc&limit=200").then(mostrarMural);
 
     /* contador de visitas: só números, sem nome, IP ou localização */
     function registrarVisita() {
