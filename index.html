@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-evento="2027-01-07T19:30:00-03:00">
+<!-- A data do casamento vem SÓ do atributo data-evento acima: o script preenche todos os textos com [data-data],
+     o título da aba, a contagem e o texto do WhatsApp. As metas og/description abaixo são só para a prévia do link. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,7 +54,7 @@
 
   /* seções */
   section{padding:64px 20px}
-  section:nth-of-type(even){background:var(--bg2)}
+  section.alt{background:var(--bg2)}
   .wrap{max-width:720px; margin:0 auto}
   h2{font:400 clamp(32px, 8vw, 44px)/1.15 var(--serif); text-align:center; margin:0 0 28px}
   .orn{display:block; margin:0 auto 14px; width:120px; height:22px; color:var(--taupe)}
@@ -127,6 +129,63 @@
   .pix .recebedor{margin:0 0 14px; font-size:15px}
   .pix .btn{cursor:pointer; justify-content:center}
   .pix .nota{min-height:1.4em}
+  /* cotas de presente */
+  .cotas{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:12px; margin:28px 0 6px; text-align:left}
+  .cota{display:flex; flex-direction:column; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; padding:0;
+        font:inherit; color:inherit; text-align:left; cursor:pointer; box-shadow:0 14px 30px -26px rgba(47,42,37,.55)}
+  .cota:hover:not([disabled]){border-color:var(--taupe)}
+  .cota:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .cota[disabled]{cursor:default}
+  .cota .img{display:block; aspect-ratio:4 / 3; background:var(--bg2); overflow:hidden}
+  .cota .img img{width:100%; height:100%; object-fit:cover}
+  .cota .img.sem{display:grid; place-items:center; color:var(--taupe)}
+  .cota .img.sem svg{width:44px; height:44px}
+  .cota .corpo{display:flex; flex-direction:column; gap:6px; padding:12px 14px 14px; flex:1}
+  .cota .titulo{font:500 21px/1.2 var(--serif); color:var(--ink)}
+  .cota .desc{font-size:13px; line-height:1.45; color:var(--soft)}
+  .cota .valor{margin-top:auto; padding-top:4px; font:700 16px/1.2 var(--sans); color:var(--ink)}
+  .cota .acao{align-self:flex-start; font-size:12px; font-weight:700; letter-spacing:.03em; border-radius:999px; padding:5px 11px; background:var(--accent); color:#fff}
+  .cota .acao.breve{background:var(--bg2); color:var(--soft)}
+  .cotas-nota{font-size:13px; color:var(--soft); margin:6px 0 0}
+  .outra-lista{margin-top:30px}
+
+  /* janela da cota */
+  dialog.janela{border:0; border-radius:18px; padding:0; width:min(440px, calc(100% - 32px)); max-height:calc(100% - 32px); overflow:auto;
+                background:#fff; color:var(--ink); box-shadow:0 30px 70px -30px rgba(0,0,0,.6)}
+  dialog.janela::backdrop{background:rgba(15,20,26,.62)}
+  .janela .fechar{position:absolute; right:8px; top:8px; width:44px; height:44px; border:0; border-radius:50%; background:rgba(255,255,255,.88);
+                  font:400 28px/1 var(--sans); color:var(--ink); cursor:pointer; z-index:1}
+  .janela .topo-img{display:block; width:100%; aspect-ratio:16 / 9; object-fit:cover; background:var(--bg2)}
+  .janela .conteudo{padding:22px 20px 24px; text-align:center}
+  .janela h3{font:400 30px/1.15 var(--serif); margin:0 40px 4px}
+  .janela .cj-valor{font:700 20px/1.3 var(--sans); margin:0 0 6px}
+  .janela .cj-desc{color:var(--soft); font-size:14px; margin:0 0 10px}
+  .janela .qr{width:210px; max-width:100%; margin:6px auto 10px}
+  .janela .qr svg{display:block; width:100%; height:auto}
+  .janela .recebedor{margin:0 0 12px; font-size:14px}
+  .janela .btn{cursor:pointer; justify-content:center}
+  .form.plano{margin:14px 0 0; padding:16px 0 0; border:0; border-top:1px solid var(--line); border-radius:0; box-shadow:none; max-width:none; gap:12px}
+  .form.plano > p{margin:0; font-size:14px; color:var(--soft)}
+  .form.plano .nota{margin:0; text-align:left}
+
+  /* mural de recados */
+  .mural{margin-top:40px; text-align:left}
+  .mural h3{font:400 30px/1.2 var(--serif); text-align:center; margin:0 0 16px}
+  .mural .lista{display:grid; gap:12px}
+  .mural article{background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+  .mural .msg{margin:0 0 8px; white-space:pre-line; word-break:break-word}
+  .mural .quem{font-size:13px; font-weight:600; color:var(--soft)}
+
+  /* o casal e padrinhos */
+  .texto-livre p{color:var(--soft); white-space:pre-line}
+  .nomes{list-style:none; padding:0; margin:22px auto 0; display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:10px}
+  .nomes li{background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; text-align:center; font:500 21px/1.3 var(--serif)}
+
+  /* compartilhar */
+  .btn.whats svg{width:18px; height:18px}
+  .feito .botoes{justify-content:center}
+  footer .btn{margin-top:22px; color:#e9e1d6; border-color:#6f655b}
+
   .retrato img.nova{transform:none; object-position:50% 35%}
   .capa .fundo img.nova{object-position:50% 35%}
 
@@ -150,6 +209,8 @@
     .local{grid-template-columns:1fr 1fr; gap:48px}
     .local figure img{aspect-ratio:1 / 1; object-position:50% 55%}
     .wrap.largo{max-width:980px}
+    .cotas{grid-template-columns:repeat(auto-fit, minmax(210px, 250px)); justify-content:center; gap:16px}
+    .mural .lista{grid-template-columns:1fr 1fr}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -164,7 +225,7 @@
     <svg class="mono" aria-hidden="true"><use href="#mono"/></svg>
     <h1>Ana Caroline<br>e Matheus</h1>
     <p class="data">
-      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>7 de janeiro de 2027</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span data-data="longa">7 de janeiro de 2027</span></span>
       <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Palmas · Tocantins</span>
     </p>
   </div>
@@ -173,7 +234,9 @@
 <nav aria-label="Seções">
   <ul>
     <li><a href="#inicio">Início</a></li>
+    <li id="menu-casal" hidden><a href="#casal">O casal</a></li>
     <li><a href="#recepcao">Recepção</a></li>
+    <li id="menu-padrinhos" hidden><a href="#padrinhos">Padrinhos</a></li>
     <li><a href="#presentes">Lista de presentes</a></li>
     <li><a href="#confirmacao">Confirme sua presença</a></li>
     <li><a href="#recados">Recados</a></li>
@@ -190,17 +253,25 @@
         <div><b data-u="m">--</b><small>minutos</small></div>
         <div><b data-u="s">--</b><small>segundos</small></div>
       </div>
-      <p class="quando">Quinta-feira, 7 de janeiro de 2027, às 19h30</p>
+      <p class="quando" data-data="completa">Quinta-feira, 7 de janeiro de 2027, às 19h30</p>
     </div>
   </section>
 
-  <section class="boas" aria-label="Boas-vindas">
+  <section class="boas alt" aria-label="Boas-vindas">
     <div class="wrap">
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <p>Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia!</p>
       <p>Aqui vocês poderão confirmar sua presença, lista de presentes e a localização do evento.</p>
       <p>É muito importante confirmar sua presença. Para isto contamos com sua ajuda clicando no menu “Confirme sua presença” e preenchendo os dados necessários. Para nos presentear, escolha qualquer item da nossa lista de presentes ou então vocês podem utilizar a opção de cotas, escolhendo a cota de sua preferência. Fiquem à vontade!</p>
       <p class="assina">Aguardamos vocês no nosso grande dia!</p>
+    </div>
+  </section>
+
+  <section id="casal" aria-labelledby="t-casal" hidden>
+    <div class="wrap">
+      <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
+      <h2 id="t-casal">O casal</h2>
+      <div class="texto-livre" id="casal-texto"></div>
     </div>
   </section>
 
@@ -211,10 +282,10 @@
       <div class="local">
         <figure><img src="img/cabana-do-lago-fachada.webp" width="1100" height="1650" loading="lazy" alt="Fachada do restaurante Cabana do Lago ao entardecer"></figure>
         <div>
-          <p>Convidamos você pontualmente para nossa cerimônia no dia 7 de janeiro de 2027, no restaurante Cabana do Lago, em Palmas, Tocantins.</p>
+          <p>Convidamos você pontualmente para nossa cerimônia no dia <span data-data="longa">7 de janeiro de 2027</span>, no restaurante Cabana do Lago, em Palmas, Tocantins.</p>
           <div class="info">
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-              <p style="margin:0"><strong>7 de janeiro de 2027</strong><span>Quinta-feira, a partir das 19h30</span></p></div>
+              <p style="margin:0"><strong data-data="longa">7 de janeiro de 2027</strong><span data-data="semana">Quinta-feira, a partir das 19h30</span></p></div>
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
               <p style="margin:0"><strong>Restaurante Cabana do Lago</strong><span>Palmas · Tocantins</span></p></div>
           </div>
@@ -227,12 +298,23 @@
     </div>
   </section>
 
-  <section id="presentes" aria-labelledby="t-presentes">
+  <section id="padrinhos" aria-labelledby="t-padrinhos" hidden>
     <div class="wrap centro">
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
+      <h2 id="t-padrinhos">Padrinhos</h2>
+      <div class="texto-livre" id="padrinhos-texto"></div>
+      <ul class="nomes" id="padrinhos-nomes" hidden></ul>
+    </div>
+  </section>
+
+  <section id="presentes" class="alt" aria-labelledby="t-presentes">
+    <div class="wrap largo centro">
+      <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-presentes">Lista de presentes</h2>
-      <p>A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para a nossa tão sonhada lua de mel.</p>
-      <div class="botoes centro" style="margin-top:24px">
+      <p style="max-width:720px; margin-left:auto; margin-right:auto">A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para a nossa tão sonhada lua de mel.</p>
+      <div class="cotas" id="cotas" hidden></div>
+      <p class="cotas-nota" id="cotas-nota" hidden>As cotas por Pix serão liberadas em breve. Enquanto isso, você pode presentear pela lista oficial abaixo.</p>
+      <div class="botoes centro outra-lista">
         <a class="btn cheio" target="_blank" rel="noopener" href="https://noivos.casar.com/ana-e-matheus-2027-01-07#presentes">Ver a lista de presentes</a>
       </div>
       <p class="nota">Abre a lista oficial do casal em outra aba, onde o presente é escolhido e pago com segurança.</p>
@@ -247,6 +329,31 @@
     </div>
   </section>
 
+  <dialog class="janela" id="cota-janela" aria-labelledby="cj-titulo">
+    <button type="button" class="fechar" id="cj-fechar" aria-label="Fechar">&times;</button>
+    <img class="topo-img" id="cj-img" alt="" hidden>
+    <div class="conteudo">
+      <h3 id="cj-titulo"></h3>
+      <p class="cj-valor" id="cj-valor"></p>
+      <p class="cj-desc" id="cj-desc"></p>
+      <div class="qr" id="cj-qr" role="img" aria-label="QR code do Pix com o valor da cota"></div>
+      <p class="recebedor">Recebedor: <strong id="cj-nome"></strong></p>
+      <button type="button" class="btn cheio" id="cj-copiar">Copiar código Pix (copia e cola)</button>
+      <p class="nota" id="cj-aviso" role="status" aria-live="polite"></p>
+      <form class="form plano" id="cj-form" novalidate>
+        <p>Quer que os noivos saibam que este presente é seu? Deixe seu nome (opcional).</p>
+        <label class="campo"><span>Seu nome</span>
+          <input name="nome" maxlength="120" autocomplete="name"></label>
+        <label class="campo"><span>Mensagem <small>(opcional)</small></span>
+          <textarea name="mensagem" maxlength="300" rows="2"></textarea></label>
+        <label class="isca" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
+        <p class="aviso" role="status" aria-live="polite" hidden></p>
+        <button class="btn" type="submit">Avisar os noivos</button>
+        <p class="nota">Isso só avisa os noivos da sua escolha. Não confirma o pagamento: o presente vale quando você faz o Pix no app do seu banco.</p>
+      </form>
+    </div>
+  </dialog>
+
   <section id="confirmacao" aria-labelledby="t-confirmacao">
     <div class="wrap centro">
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
@@ -254,7 +361,10 @@
       <p>É muito importante confirmar sua presença. Informe seu nome completo, se irá ao evento e quantos adultos e crianças irão com você.</p>
       <div class="feito" id="rsvp-feito" hidden>
         <p id="rsvp-feito-txt">Presença já confirmada neste aparelho.</p>
-        <button type="button" class="btn" id="rsvp-outra">Enviar outra confirmação</button>
+        <div class="botoes">
+          <a class="btn cheio whats" data-whats target="_blank" rel="noopener" href="https://wa.me/?text=Site%20do%20casamento%20de%20Ana%20Caroline%20e%20Matheus%3A%20https%3A%2F%2Flgrsv.github.io%2Fana-e-matheus-2027%2F"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Compartilhar no WhatsApp</a>
+          <button type="button" class="btn" id="rsvp-outra">Enviar outra confirmação</button>
+        </div>
       </div>
       <form class="form" id="rsvp" novalidate>
         <label class="campo"><span>Nome completo</span>
@@ -266,13 +376,15 @@
           </div>
         </fieldset>
         <div class="dupla" id="rsvp-qtd">
-          <label class="campo"><span>Adultos <small>(com você)</small></span>
-            <input name="adultos" type="number" inputmode="numeric" min="1" max="20" value="1"></label>
-          <label class="campo"><span>Crianças</span>
-            <input name="criancas" type="number" inputmode="numeric" min="0" max="20" value="0"></label>
+          <label class="campo"><span>Adultos <small>(com você, até <b id="lim-a">10</b>)</small></span>
+            <input name="adultos" type="number" inputmode="numeric" min="1" max="10" value="1"></label>
+          <label class="campo" id="campo-criancas"><span>Crianças <small>(até <b id="lim-c">10</b>)</small></span>
+            <input name="criancas" type="number" inputmode="numeric" min="0" max="10" value="0"></label>
         </div>
         <label class="campo"><span>Telefone <small>(opcional)</small></span>
           <input name="telefone" type="tel" maxlength="30" autocomplete="tel" placeholder="(63) 90000-0000"></label>
+        <label class="campo"><span>E-mail <small>(opcional)</small></span>
+          <input name="email" type="email" maxlength="120" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="voce@exemplo.com"></label>
         <label class="campo"><span>Mensagem aos noivos <small>(opcional)</small></span>
           <textarea name="mensagem" maxlength="500" rows="3"></textarea></label>
         <label class="isca" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
@@ -282,7 +394,7 @@
     </div>
   </section>
 
-  <section id="recados" aria-labelledby="t-recados">
+  <section id="recados" class="alt" aria-labelledby="t-recados">
     <div class="wrap centro">
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-recados">Deixe seu recado</h2>
@@ -296,6 +408,10 @@
         <p class="aviso" role="status" aria-live="polite" hidden></p>
         <button class="btn cheio" type="submit">Enviar recado</button>
       </form>
+      <div class="mural" id="mural" hidden>
+        <h3>Mural de recados</h3>
+        <div class="lista" id="mural-lista"></div>
+      </div>
     </div>
   </section>
 </main>
@@ -303,31 +419,55 @@
 <footer>
   <svg class="mono" aria-hidden="true"><use href="#mono"/></svg>
   <p>Ana Caroline &amp; Matheus</p>
-  <small>07 · 01 · 2027 · Palmas - TO</small>
+  <small><span data-data="pontos">07 · 01 · 2027</span> · Palmas - TO</small>
+  <a class="btn whats" data-whats target="_blank" rel="noopener" href="https://wa.me/?text=Site%20do%20casamento%20de%20Ana%20Caroline%20e%20Matheus%3A%20https%3A%2F%2Flgrsv.github.io%2Fana-e-matheus-2027%2F"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Compartilhar no WhatsApp</a>
 </footer>
 
 <script>
   (function () {
-    var alvo = new Date("2027-01-07T19:30:00-03:00").getTime();
-    var el = {}; document.querySelectorAll("[data-u]").forEach(function (b) { el[b.dataset.u] = b; });
-    function dois(n) { return String(n).padStart(2, "0"); }
-    function tick() {
-      var r = Math.max(0, alvo - Date.now()) / 1000;
-      el.d.textContent = Math.floor(r / 86400);
-      el.h.textContent = dois(Math.floor(r % 86400 / 3600));
-      el.m.textContent = dois(Math.floor(r % 3600 / 60));
-      el.s.textContent = dois(Math.floor(r % 60));
-    }
-    tick(); setInterval(tick, 1000);
-  })();
-
-  (function () {
+    "use strict";
     var SB = "https://gypllpiiggmklpkqapyz.supabase.co";
     var KEY = "sb_publishable_MMlGHXZ72ginONns81RTTA_hjozOzti";
     var FOTOS = SB + "/storage/v1/object/public/fotos/";
     var CHAVE = "am2027_presenca";
+    var SITE_URL = "https://lgrsv.github.io/ana-e-matheus-2027/";
+    var TZ = "America/Araguaina";
+    var $ = function (s) { return document.querySelector(s); };
 
-  /* Pix estático (BR Code EMV) */
+    /* data do casamento: o único lugar é o atributo data-evento do <html> */
+    var EVENTO = new Date(document.documentElement.getAttribute("data-evento"));
+    var DATA = (function () {
+      function f(op) { return new Intl.DateTimeFormat("pt-BR", Object.assign({ timeZone: TZ }, op)).format(EVENTO); }
+      var sem = f({ weekday: "long" }); sem = sem.charAt(0).toUpperCase() + sem.slice(1);
+      var hora = f({ hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).replace(":", "h");
+      var dd = f({ day: "2-digit" }), mm = f({ month: "2-digit" }), aa = f({ year: "numeric" });
+      var longa = f({ day: "numeric", month: "long", year: "numeric" });
+      return { longa: longa, completa: sem + ", " + longa + ", às " + hora, semana: sem + ", a partir das " + hora,
+               pontos: dd + " · " + mm + " · " + aa, curta: dd + "." + mm + "." + aa };
+    })();
+    document.querySelectorAll("[data-data]").forEach(function (e) { var v = DATA[e.getAttribute("data-data")]; if (v) e.textContent = v; });
+    document.title = "Ana Caroline e Matheus · " + DATA.curta;
+
+    /* contagem regressiva */
+    (function () {
+      var alvo = EVENTO.getTime();
+      var el = {}; document.querySelectorAll("[data-u]").forEach(function (b) { el[b.dataset.u] = b; });
+      function dois(n) { return String(n).padStart(2, "0"); }
+      function tick() {
+        var r = Math.max(0, alvo - Date.now()) / 1000;
+        el.d.textContent = Math.floor(r / 86400);
+        el.h.textContent = dois(Math.floor(r % 86400 / 3600));
+        el.m.textContent = dois(Math.floor(r % 3600 / 60));
+        el.s.textContent = dois(Math.floor(r % 60));
+      }
+      tick(); setInterval(tick, 1000);
+    })();
+
+    /* compartilhar no WhatsApp */
+    var TEXTO_WHATS = "Ana Caroline e Matheus vão se casar em " + DATA.longa + ", em Palmas - TO! Veja os detalhes e confirme sua presença: " + SITE_URL;
+    document.querySelectorAll("[data-whats]").forEach(function (a) { a.href = "https://wa.me/?text=" + encodeURIComponent(TEXTO_WHATS); });
+
+  /* Pix estático (BR Code EMV); valor opcional vai no campo 54 */
   var Pix = (function () {
     function semAcento(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, ""); }
     function limpo(s, max) { return semAcento(s).replace(/[^A-Za-z0-9 .,\-]/g, "").replace(/\s+/g, " ").trim().slice(0, max).trim(); }
@@ -376,23 +516,32 @@
       }
       return ("000" + crc.toString(16).toUpperCase()).slice(-4);
     }
-    /* dados = {chave, nome, cidade, mensagem}; devolve {payload, nome, cidade, tipo} ou {erro} */
+    /* dados = {chave, nome, cidade, mensagem, valor?}; devolve {payload, nome, cidade, tipo, valor} ou {erro} */
     function payload(dados) {
       var k = chave(dados && dados.chave);
       if (k.erro) return k;
       var nome = limpo(dados.nome, 25), cidade = limpo(dados.cidade || "PALMAS", 15).toUpperCase();
       if (nome.length < 2) return { erro: "Informe o nome do recebedor." };
       if (!cidade) return { erro: "Informe a cidade." };
+      var valor = dados.valor == null || dados.valor === "" ? 0 : Math.round(Number(dados.valor) * 100) / 100;
+      if (isNaN(valor) || valor < 0 || valor > 999999.99) return { erro: "Valor inválido." };
       var conta = campo("00", "br.gov.bcb.pix") + campo("01", k.chave);
       var msg = limpo(dados.mensagem, 99 - conta.length - 4);
       if (msg) conta += campo("02", msg);
-      var p = campo("00", "01") + campo("26", conta) + campo("52", "0000") + campo("53", "986") + campo("58", "BR") +
+      var p = campo("00", "01") + campo("26", conta) + campo("52", "0000") + campo("53", "986") +
+              (valor > 0 ? campo("54", valor.toFixed(2)) : "") + campo("58", "BR") +
               campo("59", nome) + campo("60", cidade) + campo("62", campo("05", "***")) + "6304";
-      return { payload: p + crc16(p), nome: nome, cidade: cidade, tipo: k.tipo, chave: k.chave };
+      return { payload: p + crc16(p), nome: nome, cidade: cidade, tipo: k.tipo, chave: k.chave, valor: valor };
     }
     return { chave: chave, payload: payload, crc16: crc16 };
   })();
+    window.__pix = Pix; /* usado só pelos testes automáticos */
 
+    function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+    function ler(caminho) {
+      return fetch(SB + "/rest/v1/" + caminho, { headers: { apikey: KEY } })
+        .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); });
+    }
     function inserir(tabela, dados) {
       return fetch(SB + "/rest/v1/" + tabela, {
         method: "POST",
@@ -413,12 +562,51 @@
       if (isNaN(n)) n = padrao;
       return Math.min(max, Math.max(min, n));
     }
+    var moedaFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    function moeda(v) { return moedaFmt.format(Number(v) || 0); }
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var ERRO = "Não foi possível enviar agora. Verifique sua conexão e tente de novo em instantes.";
 
+    function copiar(texto, msg, okTxt) {
+      function ok() { msg.textContent = okTxt; }
+      function manual() {
+        var t = document.createElement("textarea"); t.value = texto; t.setAttribute("readonly", "");
+        t.style.position = "fixed"; t.style.opacity = "0"; (document.querySelector("dialog[open]") || document.body).appendChild(t); t.select();
+        var feito = false; try { feito = document.execCommand("copy"); } catch (e) {}
+        t.remove();
+        if (feito) ok(); else { msg.textContent = "Não consegui copiar sozinho. Código: " + texto; }
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(texto).then(ok, manual);
+      else manual();
+    }
+    var qrPromessa = null;
+    function qrLib() {
+      if (!qrPromessa) qrPromessa = new Promise(function (ok, falha) {
+        if (window.qrcode) return ok();
+        var s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"; s.async = true;
+        s.onload = ok; s.onerror = function () { qrPromessa = null; falha(); }; document.head.appendChild(s);
+      });
+      return qrPromessa;
+    }
+    function svgQR(texto) { var qr = window.qrcode(0, "M"); qr.addData(texto); qr.make(); return qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true }); }
+
+    /* fundo alternado só entre as seções visíveis */
+    function alternar() {
+      var n = 0;
+      document.querySelectorAll("main > section").forEach(function (s) { if (s.hidden) return; n++; s.classList.toggle("alt", n % 2 === 0); });
+    }
+
     /* confirmação de presença */
+    var LIM = { a: 10, c: 10 };
     var rsvp = document.getElementById("rsvp");
     var feito = document.getElementById("rsvp-feito");
     var qtd = document.getElementById("rsvp-qtd");
+    function aplicarLimites(v) {
+      if (v && typeof v === "object") { LIM.a = inteiro(v.max_adultos, 1, 20, 10); LIM.c = inteiro(v.max_criancas, 0, 20, 10); }
+      rsvp.elements.adultos.max = LIM.a; rsvp.elements.criancas.max = LIM.c;
+      $("#lim-a").textContent = LIM.a; $("#lim-c").textContent = LIM.c;
+      $("#campo-criancas").hidden = LIM.c === 0;
+    }
     function mostrarFeito(v) {
       document.getElementById("rsvp-feito-txt").textContent = v.vai
         ? "Presença confirmada para " + v.nome + ". Obrigado, esperamos você!"
@@ -442,12 +630,17 @@
       var f = rsvp.elements, btn = rsvp.querySelector("button[type=submit]");
       var nome = f.nome.value.trim().replace(/\s+/g, " ");
       var vai = rsvp.querySelector("input[name=vai]:checked").value === "sim";
+      var email = f.email.value.trim().toLowerCase();
       if (nome.length < 2) { aviso(rsvp, "erro", "Informe seu nome completo."); f.nome.focus(); return; }
+      var adultos = vai ? inteiro(f.adultos.value, 1, 99, 1) : 0, criancas = vai ? inteiro(f.criancas.value, 0, 99, 0) : 0;
+      if (LIM.c === 0) criancas = 0;
+      if (adultos > LIM.a) { aviso(rsvp, "erro", "O máximo por confirmação é de " + LIM.a + (LIM.a === 1 ? " adulto" : " adultos") + ". Se forem mais pessoas, fale com os noivos."); f.adultos.focus(); return; }
+      if (criancas > LIM.c) { aviso(rsvp, "erro", "O máximo por confirmação é de " + LIM.c + (LIM.c === 1 ? " criança" : " crianças") + ". Se forem mais, fale com os noivos."); f.criancas.focus(); return; }
+      if (email && (email.length > 120 || !EMAIL_RE.test(email))) { aviso(rsvp, "erro", "Confira o e-mail (ou deixe em branco)."); f.email.focus(); return; }
       var dados = {
-        nome: nome.slice(0, 120), vai: vai,
-        adultos: vai ? inteiro(f.adultos.value, 1, 20, 1) : 0,
-        criancas: vai ? inteiro(f.criancas.value, 0, 20, 0) : 0,
+        nome: nome.slice(0, 120), vai: vai, adultos: adultos, criancas: criancas,
         telefone: f.telefone.value.trim().slice(0, 30) || null,
+        email: email || null,
         mensagem: f.mensagem.value.trim().slice(0, 500) || null,
         origem: "site"
       };
@@ -464,7 +657,7 @@
       });
     });
 
-    /* recados */
+    /* recados (vão para o mural só depois que os noivos aprovam) */
     var rec = document.getElementById("recado");
     rec.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -476,13 +669,29 @@
       var envio = f.site.value ? Promise.resolve() : inserir("recados", { nome: nome.slice(0, 120), mensagem: msg.slice(0, 1000) });
       envio.then(function () {
         rec.reset();
-        aviso(rec, "ok", "Recado enviado! Os noivos vão adorar ler. Obrigado pelo carinho.");
+        aviso(rec, "ok", "Recado enviado! Ele aparece no mural depois que os noivos aprovarem. Obrigado pelo carinho.");
       }).catch(function () {
         aviso(rec, "erro", ERRO);
       }).then(function () {
         btn.disabled = false; btn.textContent = "Enviar recado";
       });
     });
+
+    /* mural: só recados aprovados, só nome, mensagem e data */
+    var fmtMural = new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long", timeZone: TZ });
+    function desenharMural(lista) {
+      var alvo = $("#mural-lista"); alvo.textContent = "";
+      (lista || []).forEach(function (r) {
+        if (!r || typeof r.nome !== "string" || typeof r.mensagem !== "string") return;
+        var a = el("article");
+        a.appendChild(el("p", "msg", r.mensagem));
+        var quando = ""; try { quando = " · " + fmtMural.format(new Date(r.criado_em)); } catch (e) {}
+        a.appendChild(el("div", "quem", r.nome + quando));
+        alvo.appendChild(a);
+      });
+      $("#mural").hidden = !alvo.children.length;
+    }
+    ler("recados?select=nome,mensagem,criado_em&order=criado_em.desc&limit=60").then(desenharMural).catch(function () {});
 
     /* fotos escolhidas pelos noivos no painel */
     function trocar(url, imgs) {
@@ -496,51 +705,134 @@
       };
       nova.src = url;
     }
-    /* Pix: só aparece quando os noivos cadastram a chave no painel */
-    function carregarScript(src) {
-      return new Promise(function (ok, falha) {
-        var s = document.createElement("script"); s.src = src; s.async = true;
-        s.onload = ok; s.onerror = falha; document.head.appendChild(s);
-      });
-    }
+
+    /* Pix livre: só aparece quando os noivos cadastram a chave no painel */
     function mostrarPix(cfg) {
-      if (!cfg || !cfg.chave) return;
       var r = Pix.payload(cfg);
       if (r.erro) return;
-      carregarScript("https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js").then(function () {
-        var qr = window.qrcode(0, "M"); qr.addData(r.payload); qr.make();
-        document.getElementById("pix-qr").innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
+      qrLib().then(function () {
+        document.getElementById("pix-qr").innerHTML = svgQR(r.payload);
         document.getElementById("pix-nome").textContent = r.nome;
         var caixa = document.getElementById("pix"), msg = document.getElementById("pix-aviso");
         caixa.hidden = false;
         document.getElementById("pix-copiar").addEventListener("click", function () {
-          function ok() { msg.textContent = "Código copiado! Agora abra o app do banco, escolha Pix copia e cola e cole."; }
-          function manual() {
-            var t = document.createElement("textarea"); t.value = r.payload; t.setAttribute("readonly", "");
-            t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select();
-            var feito = false; try { feito = document.execCommand("copy"); } catch (e) {}
-            t.remove();
-            if (feito) ok(); else { msg.textContent = "Não consegui copiar sozinho. Código: " + r.payload; }
-          }
-          if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(r.payload).then(ok, manual);
-          else manual();
+          copiar(r.payload, msg, "Código copiado! Agora abra o app do banco, escolha Pix copia e cola e cole.");
         });
       }).catch(function () {});
     }
 
-    fetch(SB + "/rest/v1/config?chave=in.(fotos,pix)&select=chave,valor", { headers: { apikey: KEY } })
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (linhas) {
-        var cfg = {};
-        (linhas || []).forEach(function (l) { cfg[l.chave] = l.valor; });
-        var v = cfg.fotos;
-        if (v) {
-          trocar(v.capa, [document.querySelector(".capa .fundo img"), document.querySelector(".retrato img")]);
-          trocar(v.local, [document.querySelector("#recepcao figure img")]);
-        }
-        mostrarPix(cfg.pix);
-      })
-      .catch(function () {});
+    /* cotas de presente */
+    var PRESENTE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8c-1.5-3-5-4-5.5-2S9 8 12 8zm0 0c1.5-3 5-4 5.5-2S15 8 12 8z"/></svg>';
+    var pixCfg = null;
+    function pixOk() { return !!(pixCfg && pixCfg.chave && !Pix.payload(pixCfg).erro); }
+    function desenharCotas(lista) {
+      var box = $("#cotas"); box.textContent = "";
+      lista = (lista || []).filter(function (c) { return c && c.id && typeof c.nome === "string" && Number(c.valor) > 0; });
+      var liberado = pixOk();
+      box.hidden = !lista.length;
+      $("#cotas-nota").hidden = !lista.length || liberado;
+      lista.forEach(function (c) {
+        var b = el("button", "cota"); b.type = "button";
+        var fig = el("span", "img" + (c.imagem ? "" : " sem"));
+        if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) {
+          var im = el("img"); im.src = c.imagem; im.alt = ""; im.loading = "lazy"; im.width = 400; im.height = 300; fig.appendChild(im);
+        } else { fig.className = "img sem"; fig.innerHTML = PRESENTE_SVG; }
+        var corpo = el("span", "corpo");
+        corpo.appendChild(el("span", "titulo", c.nome));
+        if (c.descricao) corpo.appendChild(el("span", "desc", c.descricao));
+        corpo.appendChild(el("span", "valor", moeda(c.valor)));
+        corpo.appendChild(el("span", "acao" + (liberado ? "" : " breve"), liberado ? "Presentear com Pix" : "Em breve"));
+        b.appendChild(fig); b.appendChild(corpo);
+        if (liberado) {
+          b.setAttribute("aria-label", c.nome + ", " + moeda(c.valor) + ". Presentear com Pix");
+          b.addEventListener("click", function () { abrirCota(c); });
+        } else b.disabled = true;
+        box.appendChild(b);
+      });
+    }
+
+    var jan = $("#cota-janela"), cjForm = $("#cj-form"), cotaAtual = null, cotaPayload = "";
+    function fecharJanela() { if (jan.close) jan.close(); else jan.removeAttribute("open"); }
+    function abrirCota(c) {
+      var r = Pix.payload(Object.assign({}, pixCfg, { valor: Number(c.valor) }));
+      if (r.erro) return;
+      cotaAtual = c; cotaPayload = r.payload;
+      var img = $("#cj-img");
+      if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) { img.src = c.imagem; img.hidden = false; } else { img.hidden = true; img.removeAttribute("src"); }
+      $("#cj-titulo").textContent = c.nome;
+      $("#cj-valor").textContent = moeda(c.valor);
+      $("#cj-desc").textContent = c.descricao || ""; $("#cj-desc").hidden = !c.descricao;
+      $("#cj-nome").textContent = r.nome;
+      $("#cj-aviso").textContent = "Leia o QR code no app do banco ou copie o código. O valor de " + moeda(c.valor) + " já vem preenchido.";
+      cjForm.reset(); cjForm.hidden = false; aviso(cjForm, "", "");
+      Array.prototype.forEach.call(cjForm.querySelectorAll("input, textarea, button"), function (x) { x.disabled = false; });
+      var qrBox = $("#cj-qr"); qrBox.textContent = "";
+      qrLib().then(function () { if (cotaPayload === r.payload) qrBox.innerHTML = svgQR(r.payload); })
+        .catch(function () { qrBox.textContent = "Não consegui gerar o QR code. Use o botão de copiar."; });
+      if (jan.showModal) jan.showModal(); else jan.setAttribute("open", "");
+    }
+    $("#cj-fechar").addEventListener("click", fecharJanela);
+    jan.addEventListener("click", function (e) { if (e.target === jan) fecharJanela(); });
+    $("#cj-copiar").addEventListener("click", function () {
+      if (cotaPayload) copiar(cotaPayload, $("#cj-aviso"), "Código copiado! Abra o app do banco, escolha Pix copia e cola e cole. O valor já vem preenchido.");
+    });
+    cjForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!cotaAtual) return;
+      var f = cjForm.elements, btn = cjForm.querySelector("button[type=submit]");
+      var nome = f.nome.value.trim().replace(/\s+/g, " ");
+      if (nome.length < 2) { aviso(cjForm, "erro", "Escreva seu nome para os noivos saberem."); f.nome.focus(); return; }
+      btn.disabled = true; btn.textContent = "Enviando..."; aviso(cjForm, "", "");
+      var envio = f.site.value ? Promise.resolve()
+        : inserir("intencoes_presente", { presente_id: cotaAtual.id, nome: nome.slice(0, 120), mensagem: f.mensagem.value.trim().slice(0, 300) || null });
+      envio.then(function () {
+        aviso(cjForm, "ok", "Obrigado! Os noivos vão saber do seu carinho. Lembre-se: o presente só vale depois do Pix feito no app do banco.");
+        Array.prototype.forEach.call(cjForm.querySelectorAll("input, textarea, button"), function (x) { x.disabled = true; });
+      }).catch(function () {
+        aviso(cjForm, "erro", ERRO);
+        btn.disabled = false;
+      }).then(function () { btn.textContent = "Avisar os noivos"; });
+    });
+
+    /* seções opcionais O casal e Padrinhos */
+    function paragrafos(alvo, s) {
+      alvo.textContent = "";
+      String(s || "").split(/\n\s*\n/).forEach(function (p) { p = p.trim(); if (p) alvo.appendChild(el("p", null, p)); });
+    }
+    function secao(id, mostrar) { document.getElementById(id).hidden = !mostrar; document.getElementById("menu-" + id).hidden = !mostrar; }
+    function secoes(cfg) {
+      var casal = cfg.casal && typeof cfg.casal.texto === "string" ? cfg.casal.texto.trim().slice(0, 4000) : "";
+      if (casal) paragrafos($("#casal-texto"), casal);
+      secao("casal", !!casal);
+      var pd = cfg.padrinhos && typeof cfg.padrinhos === "object" ? cfg.padrinhos : {};
+      var pt = typeof pd.texto === "string" ? pd.texto.trim().slice(0, 4000) : "";
+      var nomes = Array.isArray(pd.nomes) ? pd.nomes.filter(function (n) { return typeof n === "string" && n.trim(); }).slice(0, 80) : [];
+      paragrafos($("#padrinhos-texto"), pt);
+      var ul = $("#padrinhos-nomes"); ul.textContent = "";
+      nomes.forEach(function (n) { ul.appendChild(el("li", null, n.trim().slice(0, 100))); });
+      ul.hidden = !nomes.length;
+      secao("padrinhos", !!(pt || nomes.length));
+      alternar();
+    }
+
+    aplicarLimites(null);
+    Promise.all([
+      ler("config?chave=in.(fotos,pix,rsvp,casal,padrinhos)&select=chave,valor").catch(function () { return []; }),
+      ler("presentes?select=id,nome,valor,descricao,imagem&order=ordem.asc,criado_em.asc").catch(function () { return []; })
+    ]).then(function (res) {
+      var cfg = {};
+      (res[0] || []).forEach(function (l) { cfg[l.chave] = l.valor; });
+      var v = cfg.fotos;
+      if (v) {
+        trocar(v.capa, [document.querySelector(".capa .fundo img"), document.querySelector(".retrato img")]);
+        trocar(v.local, [document.querySelector("#recepcao figure img")]);
+      }
+      pixCfg = cfg.pix && cfg.pix.chave ? cfg.pix : null;
+      if (pixCfg) mostrarPix(pixCfg);
+      aplicarLimites(cfg.rsvp);
+      secoes(cfg);
+      desenharCotas(res[1]);
+    }).catch(function () {});
 
     /* contador de visitas: só números, sem nome, IP ou localização */
     function registrarVisita() {
