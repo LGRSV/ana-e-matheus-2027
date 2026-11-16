@@ -146,7 +146,13 @@
   .cota .valor{margin-top:auto; padding-top:4px; font:700 16px/1.2 var(--sans); color:var(--ink)}
   .cota .acao{align-self:flex-start; font-size:12px; font-weight:700; letter-spacing:.03em; border-radius:999px; padding:5px 11px; background:var(--accent); color:#fff}
   .cota .acao.breve{background:var(--bg2); color:var(--soft)}
+  .cota .restam{font-size:12px; font-weight:600; color:var(--soft)}
+  .cota .acao.esgotada{background:#f8ecea; color:#8a3b2f}
+  .cota.esgotada .img{opacity:.55; filter:grayscale(.6)}
+  .cota.esgotada .titulo, .cota.esgotada .valor{color:var(--soft)}
   .cotas-nota{font-size:13px; color:var(--soft); margin:6px 0 0}
+  .aviso.info{background:#f4efe8; color:var(--ink); border:1px solid var(--line)}
+  .cota-retorno{max-width:560px; margin:0 auto 6px; text-align:center}
   .outra-lista{margin-top:30px}
 
   /* janela da cota */
@@ -167,6 +173,12 @@
   .form.plano{margin:14px 0 0; padding:16px 0 0; border:0; border-top:1px solid var(--line); border-radius:0; box-shadow:none; max-width:none; gap:12px}
   .form.plano > p{margin:0; font-size:14px; color:var(--soft)}
   .form.plano .nota{margin:0; text-align:left}
+  .form .btn.pagar{flex-direction:column; gap:4px; line-height:1.25; text-align:center; padding:12px 16px; cursor:pointer}
+  .form .btn.pagar .preco{font-size:16px; font-weight:700}
+  .form .btn.pagar[disabled]{cursor:progress}
+  .form.plano .taxa{margin:0; font-size:13px; color:var(--soft); text-align:left}
+  .feito .convite{margin-top:18px; padding-top:16px; border-top:1px solid var(--line)}
+  .feito .convite p{margin:0 0 12px; font:400 22px/1.3 var(--serif); color:var(--ink)}
 
   /* mural de recados */
   .mural{margin-top:40px; text-align:left}
@@ -312,6 +324,7 @@
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-presentes">Lista de presentes</h2>
       <p style="max-width:720px; margin-left:auto; margin-right:auto">A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para a nossa tão sonhada lua de mel.</p>
+      <p class="aviso cota-retorno" id="cota-retorno" role="status" aria-live="polite" tabindex="-1" hidden></p>
       <div class="cotas" id="cotas" hidden></div>
       <p class="cotas-nota" id="cotas-nota" hidden>As cotas por Pix serão liberadas em breve. Enquanto isso, você pode presentear pela lista oficial abaixo.</p>
       <div class="botoes centro outra-lista">
@@ -336,6 +349,21 @@
       <h3 id="cj-titulo"></h3>
       <p class="cj-valor" id="cj-valor"></p>
       <p class="cj-desc" id="cj-desc"></p>
+      <form class="form plano" id="cj-pagar" novalidate hidden>
+        <p>Preencha seus dados e escolha como pagar. Você será levado ao Mercado Pago para concluir com segurança.</p>
+        <label class="campo"><span>Seu nome</span>
+          <input name="nome" required minlength="2" maxlength="120" autocomplete="name" placeholder="Seu nome e sobrenome"></label>
+        <label class="campo"><span>E-mail <small>(opcional)</small></span>
+          <input name="email" type="email" maxlength="120" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="voce@exemplo.com"></label>
+        <label class="campo"><span>Mensagem aos noivos <small>(opcional)</small></span>
+          <textarea name="mensagem" maxlength="300" rows="2"></textarea></label>
+        <label class="isca" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
+        <p class="taxa" id="cj-taxa"></p>
+        <p class="aviso" role="status" aria-live="polite" hidden></p>
+        <button type="button" class="btn cheio pagar" data-metodo="pix"><span>Pagar com Pix</span><span class="preco" id="cj-preco-pix"></span></button>
+        <button type="button" class="btn pagar" data-metodo="cartao"><span>Pagar com cartão (crédito ou débito)</span><span class="preco" id="cj-preco-cartao"></span></button>
+      </form>
+      <div id="cj-manual">
       <div class="qr" id="cj-qr" role="img" aria-label="QR code do Pix com o valor da cota"></div>
       <p class="recebedor">Recebedor: <strong id="cj-nome"></strong></p>
       <button type="button" class="btn cheio" id="cj-copiar">Copiar código Pix (copia e cola)</button>
@@ -351,6 +379,7 @@
         <button class="btn" type="submit">Avisar os noivos</button>
         <p class="nota">Isso só avisa os noivos da sua escolha. Não confirma o pagamento: o presente vale quando você faz o Pix no app do seu banco.</p>
       </form>
+      </div>
     </div>
   </dialog>
 
@@ -364,6 +393,10 @@
         <div class="botoes">
           <a class="btn cheio whats" data-whats target="_blank" rel="noopener" href="https://wa.me/?text=Site%20do%20casamento%20de%20Ana%20Caroline%20e%20Matheus%3A%20https%3A%2F%2Flgrsv.github.io%2Fana-e-matheus-2027%2F"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>Compartilhar no WhatsApp</a>
           <button type="button" class="btn" id="rsvp-outra">Enviar outra confirmação</button>
+        </div>
+        <div class="convite" id="rsvp-presente" hidden>
+          <p>Quer presentear os noivos? Escolha uma cota</p>
+          <div class="botoes"><a class="btn cheio" href="#presentes" id="rsvp-ir-presentes">Ver as cotas de presente</a></div>
         </div>
       </div>
       <form class="form" id="rsvp" novalidate>
@@ -611,6 +644,7 @@
       document.getElementById("rsvp-feito-txt").textContent = v.vai
         ? "Presença confirmada para " + v.nome + ". Obrigado, esperamos você!"
         : "Resposta registrada para " + v.nome + ". Obrigado por avisar!";
+      document.getElementById("rsvp-presente").hidden = !v.vai;
       feito.hidden = false; rsvp.hidden = true;
     }
     var ja = lembrado();
@@ -725,14 +759,26 @@
     var PRESENTE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8c-1.5-3-5-4-5.5-2S9 8 12 8zm0 0c1.5-3 5-4 5.5-2S15 8 12 8z"/></svg>';
     var pixCfg = null;
     function pixOk() { return !!(pixCfg && pixCfg.chave && !Pix.payload(pixCfg).erro); }
+    /* pagamento online (Mercado Pago): só quando config.pagamento.online === true */
+    var pagCfg = null;
+    function online() { return !!(pagCfg && pagCfg.online === true); }
+    function taxa(nome, padrao) { var t = Number(pagCfg && pagCfg[nome]); return isFinite(t) && t >= 0 && t < 50 ? t : padrao; }
+    /* o convidado paga a taxa: valor / (1 - taxa%), arredondado para cima no centavo */
+    function comTaxa(valor, t) { return Math.ceil(Number(valor) / (1 - t / 100) * 100 - 1e-6) / 100; }
+    function esgotada(c) { return c.limite != null && (Number(c.pagos) || 0) >= Number(c.limite); }
+    function restam(c) { return c.limite == null ? null : Math.max(0, Number(c.limite) - (Number(c.pagos) || 0)); }
+    var SEL_PRESENTES = "presentes?select=id,nome,valor,descricao,imagem,limite,pagos&order=ordem.asc,criado_em.asc";
+    function carregarCotas() { return ler(SEL_PRESENTES).then(desenharCotas).catch(function () {}); }
     function desenharCotas(lista) {
       var box = $("#cotas"); box.textContent = "";
       lista = (lista || []).filter(function (c) { return c && c.id && typeof c.nome === "string" && Number(c.valor) > 0; });
-      var liberado = pixOk();
+      var mp = online(), liberado = mp || pixOk();
+      var rotulo = mp ? "Presentear" : "Presentear com Pix";
       box.hidden = !lista.length;
       $("#cotas-nota").hidden = !lista.length || liberado;
       lista.forEach(function (c) {
-        var b = el("button", "cota"); b.type = "button";
+        var fim = esgotada(c), n = restam(c);
+        var b = el("button", "cota" + (fim ? " esgotada" : "")); b.type = "button";
         var fig = el("span", "img" + (c.imagem ? "" : " sem"));
         if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) {
           var im = el("img"); im.src = c.imagem; im.alt = ""; im.loading = "lazy"; im.width = 400; im.height = 300; fig.appendChild(im);
@@ -741,10 +787,15 @@
         corpo.appendChild(el("span", "titulo", c.nome));
         if (c.descricao) corpo.appendChild(el("span", "desc", c.descricao));
         corpo.appendChild(el("span", "valor", moeda(c.valor)));
-        corpo.appendChild(el("span", "acao" + (liberado ? "" : " breve"), liberado ? "Presentear com Pix" : "Em breve"));
+        if (!fim && n != null) corpo.appendChild(el("span", "restam", n === 1 ? "Resta 1" : "Restam " + n));
+        if (fim) corpo.appendChild(el("span", "acao esgotada", "Esgotada"));
+        else corpo.appendChild(el("span", "acao" + (liberado ? "" : " breve"), liberado ? rotulo : "Em breve"));
         b.appendChild(fig); b.appendChild(corpo);
-        if (liberado) {
-          b.setAttribute("aria-label", c.nome + ", " + moeda(c.valor) + ". Presentear com Pix");
+        if (fim) {
+          b.disabled = true;
+          b.setAttribute("aria-label", c.nome + ", " + moeda(c.valor) + ". Esgotada");
+        } else if (liberado) {
+          b.setAttribute("aria-label", c.nome + ", " + moeda(c.valor) + (n != null ? ", restam " + n : "") + ". " + rotulo);
           b.addEventListener("click", function () { abrirCota(c); });
         } else b.disabled = true;
         box.appendChild(b);
@@ -752,16 +803,111 @@
     }
 
     var jan = $("#cota-janela"), cjForm = $("#cj-form"), cotaAtual = null, cotaPayload = "";
-    function fecharJanela() { if (jan.close) jan.close(); else jan.removeAttribute("open"); }
-    function abrirCota(c) {
-      var r = Pix.payload(Object.assign({}, pixCfg, { valor: Number(c.valor) }));
-      if (r.erro) return;
-      cotaAtual = c; cotaPayload = r.payload;
+    /* pedido ao cota-pagar em andamento: enquanto existir, a janela não fecha e respostas de pedidos antigos são ignoradas */
+    var pedidoAtual = null;
+    function fecharJanela() { if (pedidoAtual) return; if (jan.close) jan.close(); else jan.removeAttribute("open"); }
+    jan.addEventListener("cancel", function (e) { if (pedidoAtual) e.preventDefault(); });
+    jan.addEventListener("close", function () { pedidoAtual = null; });
+    var cjPagar = $("#cj-pagar"), cjManual = $("#cj-manual");
+    function cabecalhoCota(c) {
       var img = $("#cj-img");
       if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) { img.src = c.imagem; img.hidden = false; } else { img.hidden = true; img.removeAttribute("src"); }
       $("#cj-titulo").textContent = c.nome;
       $("#cj-valor").textContent = moeda(c.valor);
       $("#cj-desc").textContent = c.descricao || ""; $("#cj-desc").hidden = !c.descricao;
+    }
+    function botoesPagar(ativos) {
+      Array.prototype.forEach.call(cjPagar.querySelectorAll("button.pagar"), function (x) { x.disabled = !ativos; });
+    }
+    function abrirCotaOnline(c) {
+      cotaAtual = c; cotaPayload = ""; pedidoAtual = null;
+      cabecalhoCota(c);
+      var pix = comTaxa(c.valor, taxa("taxa_pix", 0.99)), cartao = comTaxa(c.valor, taxa("taxa_cartao", 4.98));
+      $("#cj-preco-pix").textContent = moeda(pix);
+      $("#cj-preco-cartao").textContent = moeda(cartao);
+      $("#cj-taxa").textContent = "Você paga " + moeda(pix) + " no Pix ou " + moeda(cartao) + " no cartão; a taxa do Mercado Pago fica com o convidado e os noivos recebem a cota cheia de " + moeda(c.valor) + ".";
+      cjPagar.reset(); aviso(cjPagar, "", ""); botoesPagar(true);
+      cjPagar.hidden = false; cjManual.hidden = true;
+      if (jan.showModal) jan.showModal(); else jan.setAttribute("open", "");
+    }
+    function pagarOnline(metodo) {
+      if (!cotaAtual) return;
+      var f = cjPagar.elements;
+      var nome = f.nome.value.trim().replace(/\s+/g, " ");
+      var email = f.email.value.trim().toLowerCase();
+      var mensagem = f.mensagem.value.trim().slice(0, 300);
+      if ((nome.match(/[A-Za-zÀ-ÖØ-öø-ÿ]/g) || []).length < 2) { aviso(cjPagar, "erro", "Informe seu nome para os noivos saberem quem presenteou."); f.nome.focus(); return; }
+      if (email && (email.length > 120 || !EMAIL_RE.test(email))) { aviso(cjPagar, "erro", "Confira o e-mail (ou deixe em branco)."); f.email.focus(); return; }
+      /* isca preenchida (robô ou preenchimento automático): resposta neutra, sem chamar o servidor */
+      if (f.site.value) { aviso(cjPagar, "erro", ERRO); return; }
+      if (pedidoAtual) return;
+      var c = cotaAtual, pedido = {}; pedidoAtual = pedido;
+      botoesPagar(false); aviso(cjPagar, "info", "Abrindo o Mercado Pago...");
+      var corpo = { presente_id: c.id, metodo: metodo, nome: nome.slice(0, 120) };
+      if (email) corpo.email = email;
+      if (mensagem) corpo.mensagem = mensagem;
+      var status = 0, msgServidor = "";
+      function falhar(msg) {
+        clearTimeout(limite);
+        if (pedidoAtual !== pedido) return;
+        pedidoAtual = null;
+        aviso(cjPagar, "erro", msg);
+        botoesPagar(true);
+      }
+      var ctl = window.AbortController ? new AbortController() : null;
+      /* sem resposta em 20 s: libera a janela e os botões; a resposta que chegar depois é ignorada */
+      var limite = setTimeout(function () {
+        falhar("O Mercado Pago está demorando para responder. Tente de novo em instantes.");
+        if (ctl) ctl.abort();
+      }, 20000);
+      var opcoes = {
+        method: "POST",
+        headers: { apikey: KEY, "Content-Type": "application/json" },
+        body: JSON.stringify(corpo)
+      };
+      if (ctl) opcoes.signal = ctl.signal;
+      fetch(SB + "/functions/v1/cota-pagar", opcoes).then(function (r) {
+        status = r.status;
+        return r.json().catch(function () { return {}; });
+      }).then(function (d) {
+        if (pedidoAtual !== pedido) return; /* janela fechada, outra cota aberta ou tempo esgotado */
+        clearTimeout(limite);
+        d = d || {};
+        if (status >= 200 && status < 300 && typeof d.link === "string" && /^https:\/\//.test(d.link)) {
+          location.href = d.link;
+          return;
+        }
+        msgServidor = typeof d.erro === "string" ? d.erro.trim().slice(0, 300) : "";
+        if (status === 409) {
+          /* cota esgotou enquanto a pessoa escolhia: avisa, mantém os botões desligados e atualiza a lista */
+          pedidoAtual = null;
+          aviso(cjPagar, "erro", msgServidor || "Esta cota acabou de esgotar. Feche esta janela e escolha outra cota, por favor.");
+          carregarCotas();
+          return;
+        }
+        throw new Error("http " + status);
+      }).catch(function () {
+        falhar(msgServidor || ERRO);
+      });
+    }
+    Array.prototype.forEach.call(cjPagar.querySelectorAll("button.pagar"), function (b) {
+      b.addEventListener("click", function () { pagarOnline(b.getAttribute("data-metodo")); });
+    });
+    cjPagar.addEventListener("submit", function (e) { e.preventDefault(); });
+    /* voltou do Mercado Pago pelo botão Voltar (página restaurada do cache): reabilita os botões */
+    window.addEventListener("pageshow", function (e) {
+      if (!e.persisted) return;
+      pedidoAtual = null;
+      if (cjPagar.hidden) return;
+      aviso(cjPagar, "", ""); botoesPagar(true);
+    });
+    function abrirCota(c) {
+      if (online()) { abrirCotaOnline(c); return; }
+      var r = Pix.payload(Object.assign({}, pixCfg, { valor: Number(c.valor) }));
+      if (r.erro) return;
+      cotaAtual = c; cotaPayload = r.payload;
+      cjPagar.hidden = true; cjManual.hidden = false;
+      cabecalhoCota(c);
       $("#cj-nome").textContent = r.nome;
       $("#cj-aviso").textContent = "Leia o QR code no app do banco ou copie o código. O valor de " + moeda(c.valor) + " já vem preenchido.";
       cjForm.reset(); cjForm.hidden = false; aviso(cjForm, "", "");
@@ -815,10 +961,42 @@
       alternar();
     }
 
+    /* volta do Mercado Pago: ?cota=ok|pendente|erro (mais os parâmetros que o Mercado Pago acrescenta) */
+    var RETORNOS = {
+      ok: ["ok", "Obrigado! Seu presente foi confirmado. Os noivos vão receber a cota com todo o carinho."],
+      pendente: ["info", "Pagamento em processamento; assim que o Mercado Pago confirmar, a cota é registrada."],
+      erro: ["erro", "O pagamento não foi concluído; tente de novo ou escolha outra forma."]
+    };
+    var retornoCota = null;
+    try {
+      var qs = new URLSearchParams(location.search);
+      if (qs.has("cota")) {
+        var chaveCota = qs.get("cota");
+        retornoCota = Object.prototype.hasOwnProperty.call(RETORNOS, chaveCota) ? RETORNOS[chaveCota] : null;
+        ["cota", "collection_id", "collection_status", "payment_id", "status", "external_reference", "payment_type",
+         "merchant_order_id", "preference_id", "site_id", "processing_mode", "merchant_account_id"].forEach(function (k) { qs.delete(k); });
+        var resto = qs.toString();
+        history.replaceState(null, "", location.pathname + (resto ? "?" + resto : "") + "#presentes");
+      }
+    } catch (e) {}
+    /* a segunda rolagem (depois que as cotas chegam) só acontece se a pessoa ainda não mexeu na página */
+    var usuarioRolou = false;
+    function marcarRolagem() { usuarioRolou = true; }
+    ["wheel", "touchmove", "keydown", "mousedown"].forEach(function (ev) {
+      window.addEventListener(ev, marcarRolagem, { passive: true });
+    });
+    function mostrarRetorno(rolar) {
+      var p = $("#cota-retorno");
+      p.className = "aviso cota-retorno " + retornoCota[0];
+      p.textContent = retornoCota[1]; p.hidden = false;
+      if (rolar) p.scrollIntoView({ block: "center" });
+    }
+    if (retornoCota) mostrarRetorno(true);
+
     aplicarLimites(null);
     Promise.all([
-      ler("config?chave=in.(fotos,pix,rsvp,casal,padrinhos)&select=chave,valor").catch(function () { return []; }),
-      ler("presentes?select=id,nome,valor,descricao,imagem&order=ordem.asc,criado_em.asc").catch(function () { return []; })
+      ler("config?chave=in.(fotos,pix,rsvp,casal,padrinhos,pagamento)&select=chave,valor").catch(function () { return []; }),
+      ler(SEL_PRESENTES).catch(function () { return []; })
     ]).then(function (res) {
       var cfg = {};
       (res[0] || []).forEach(function (l) { cfg[l.chave] = l.valor; });
@@ -829,9 +1007,11 @@
       }
       pixCfg = cfg.pix && cfg.pix.chave ? cfg.pix : null;
       if (pixCfg) mostrarPix(pixCfg);
+      pagCfg = cfg.pagamento && typeof cfg.pagamento === "object" ? cfg.pagamento : null;
       aplicarLimites(cfg.rsvp);
       secoes(cfg);
       desenharCotas(res[1]);
+      if (retornoCota) setTimeout(function () { mostrarRetorno(!usuarioRolou); }, 60);
     }).catch(function () {});
 
     /* contador de visitas: só números, sem nome, IP ou localização */
