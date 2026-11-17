@@ -761,7 +761,11 @@
     function pixOk() { return !!(pixCfg && pixCfg.chave && !Pix.payload(pixCfg).erro); }
     /* pagamento online (Mercado Pago): só quando config.pagamento.online === true */
     var pagCfg = null;
-    function online() { return !!(pagCfg && pagCfg.online === true); }
+    /* ?teste_pagamento=1 mostra os botões do Mercado Pago só para quem abre esse link (teste do João antes de ligar para todos);
+       enquanto a conta estiver só com credenciais de teste, o pagamento cai no ambiente de teste do Mercado Pago */
+    var testePagamento = false;
+    try { testePagamento = new URLSearchParams(location.search).get("teste_pagamento") === "1"; } catch (e) {}
+    function online() { return testePagamento || !!(pagCfg && pagCfg.online === true); }
     function taxa(nome, padrao) { var t = Number(pagCfg && pagCfg[nome]); return isFinite(t) && t >= 0 && t < 50 ? t : padrao; }
     /* o convidado paga a taxa: valor / (1 - taxa%), arredondado para cima no centavo */
     function comTaxa(valor, t) { return Math.ceil(Number(valor) / (1 - t / 100) * 100 - 1e-6) / 100; }
