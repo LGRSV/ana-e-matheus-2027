@@ -152,6 +152,11 @@
   .cota .img img{width:100%; height:100%; object-fit:cover}
   .cota .img.sem{display:grid; place-items:center; color:var(--taupe)}
   .cota .img.sem svg{width:44px; height:44px}
+  .cota .img.ilus{display:block; background:linear-gradient(160deg,#f6efe6,#ebe1d4)}
+  .cota .img.ilus svg{display:block; width:100%; height:100%; padding:5%; box-sizing:border-box}
+  .janela .topo-ilus{display:block; width:100%; aspect-ratio:16 / 9; background:linear-gradient(160deg,#f6efe6,#ebe1d4)}
+  .janela .topo-ilus[hidden]{display:none}
+  .janela .topo-ilus svg{display:block; width:100%; height:100%; padding:4%; box-sizing:border-box}
   .cota .corpo{display:flex; flex-direction:column; gap:6px; padding:12px 14px 14px; flex:1}
   .cota .titulo{font:500 21px/1.2 var(--serif); color:var(--ink)}
   .cota .desc{font-size:13px; line-height:1.45; color:var(--soft)}
@@ -385,6 +390,7 @@
   <dialog class="janela" id="cota-janela" aria-labelledby="cj-titulo">
     <button type="button" class="fechar" id="cj-fechar" aria-label="Fechar">&times;</button>
     <img class="topo-img" id="cj-img" alt="" hidden>
+    <div class="topo-ilus" id="cj-ilus" hidden></div>
     <div class="conteudo">
       <h3 id="cj-titulo"></h3>
       <p class="cj-valor" id="cj-valor"></p>
@@ -867,6 +873,64 @@
 
     /* cotas de presente */
     var PRESENTE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8c-1.5-3-5-4-5.5-2S9 8 12 8zm0 0c1.5-3 5-4 5.5-2S15 8 12 8z"/></svg>';
+    /* ilustrações próprias (flat, sem contorno) escolhidas pelo nome do presente; a foto, quando existe, tem prioridade */
+    var SOMBRA = '<ellipse cx="50" cy="90" rx="30" ry="3.5" fill="#3b3631" opacity=".12"/>';
+    var ILUS = {
+      panela: '<rect x="22" y="44" width="56" height="38" rx="9" fill="#b9c3cc"/><rect x="22" y="44" width="14" height="38" rx="7" fill="#d3dbe1"/><path d="M19 46a31 17 0 0 1 62 0z" fill="#8e9aa5"/><rect x="8" y="54" width="16" height="8" rx="4" fill="#4a4f55"/><rect x="76" y="54" width="16" height="8" rx="4" fill="#4a4f55"/><rect x="45" y="22" width="10" height="10" rx="3" fill="#4a4f55"/><rect x="46" y="30" width="8" height="8" fill="#6b727a"/><circle cx="62" cy="34" r="4.5" fill="#d9695f"/>',
+      frigideira: '<ellipse cx="42" cy="60" rx="35" ry="25" fill="#33373c"/><ellipse cx="42" cy="55" rx="35" ry="25" fill="#4a4f55"/><ellipse cx="42" cy="55" rx="28" ry="19" fill="#5d646c"/><ellipse cx="32" cy="48" rx="10" ry="5" fill="#fff" opacity=".12"/><rect x="74" y="50" width="25" height="9" rx="4.5" fill="#c49a6c"/><rect x="74" y="50" width="25" height="3.5" rx="1.7" fill="#d8b488"/>',
+      jogofrig: '<ellipse cx="38" cy="38" rx="28" ry="19" fill="#4a4f55"/><ellipse cx="38" cy="38" rx="22" ry="14" fill="#5d646c"/><rect x="63" y="34" width="30" height="7" rx="3.5" fill="#4a4f55"/><ellipse cx="42" cy="56" rx="24" ry="16" fill="#c4574d"/><ellipse cx="42" cy="56" rx="18.5" ry="11.5" fill="#d9695f"/><rect x="63" y="52" width="28" height="7" rx="3.5" fill="#a8453d"/><ellipse cx="44" cy="73" rx="19" ry="12" fill="#9aa6b0"/><ellipse cx="44" cy="73" rx="14" ry="8.5" fill="#bcc6ce"/><rect x="62" y="70" width="24" height="6" rx="3" fill="#c49a6c"/>',
+      cama: '<rect x="10" y="14" width="80" height="48" rx="8" fill="#a67c52"/><rect x="16" y="20" width="68" height="36" rx="5" fill="#c49a6c"/><rect x="20" y="34" width="28" height="18" rx="8" fill="#f6f1ea"/><rect x="52" y="34" width="28" height="18" rx="8" fill="#f6f1ea"/><rect x="6" y="50" width="88" height="30" rx="7" fill="#9bb5a5"/><rect x="6" y="50" width="88" height="9" rx="4" fill="#fbf8f3"/><rect x="6" y="72" width="88" height="8" rx="4" fill="#85a091"/><rect x="12" y="80" width="7" height="8" rx="2" fill="#a67c52"/><rect x="81" y="80" width="7" height="8" rx="2" fill="#a67c52"/>',
+      toalha: '<rect x="14" y="62" width="72" height="20" rx="6" fill="#d9c7b2"/><rect x="14" y="62" width="72" height="5" rx="2.5" fill="#efe3d3"/><rect x="18" y="44" width="64" height="20" rx="6" fill="#9bb5a5"/><rect x="18" y="44" width="64" height="5" rx="2.5" fill="#b9cec3"/><rect x="22" y="27" width="56" height="19" rx="6" fill="#f2ece4"/><rect x="22" y="27" width="56" height="5" rx="2.5" fill="#fff"/><rect x="22" y="38" width="56" height="3" fill="#d9c7b2"/><rect x="18" y="55" width="64" height="3" fill="#7f9d8e"/><rect x="14" y="73" width="72" height="3" fill="#c3ad94"/>',
+      robo: '<circle cx="50" cy="54" r="38" fill="#2f3338"/><circle cx="50" cy="50" r="38" fill="#43484f"/><circle cx="50" cy="50" r="30" fill="#565d65"/><path d="M20 38a34 34 0 0 1 60 0" fill="none" stroke="#6b727a" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="52" r="12" fill="#eef1f4"/><circle cx="50" cy="52" r="5" fill="#7fc6a4"/><circle cx="50" cy="22" r="3" fill="#7fc6a4"/><circle cx="23" cy="72" r="5" fill="#d9695f"/><circle cx="77" cy="72" r="5" fill="#d9695f"/>',
+      climatizador: '<rect x="26" y="8" width="48" height="78" rx="11" fill="#d0d8de"/><rect x="24" y="6" width="48" height="78" rx="11" fill="#f1f4f6"/><rect x="31" y="12" width="34" height="6" rx="3" fill="#c0c9d1"/><rect x="31" y="24" width="34" height="26" rx="5" fill="#8ec3dc"/><rect x="36" y="29" width="24" height="3.5" rx="1.7" fill="#fff" opacity=".75"/><rect x="36" y="36" width="24" height="3.5" rx="1.7" fill="#fff" opacity=".75"/><rect x="36" y="43" width="24" height="3.5" rx="1.7" fill="#fff" opacity=".75"/><rect x="31" y="56" width="34" height="14" rx="4" fill="#4a4f55"/><circle cx="39" cy="63" r="3" fill="#7fc6a4"/><circle cx="48" cy="63" r="3" fill="#8e9aa5"/><circle cx="57" cy="63" r="3" fill="#8e9aa5"/><circle cx="34" cy="86" r="4" fill="#4a4f55"/><circle cx="62" cy="86" r="4" fill="#4a4f55"/>',
+      ventilador: '<rect x="46" y="66" width="8" height="20" fill="#8e9aa5"/><rect x="28" y="84" width="44" height="7" rx="3.5" fill="#4a4f55"/><circle cx="50" cy="38" r="33" fill="#dbe7ee"/><circle cx="50" cy="38" r="31.5" fill="none" stroke="#b9cbd6" stroke-width="3"/><g fill="#5fa8cb"><ellipse cx="50" cy="20" rx="8" ry="14"/><ellipse cx="50" cy="56" rx="8" ry="14"/><ellipse cx="32" cy="38" rx="14" ry="8"/><ellipse cx="68" cy="38" rx="14" ry="8"/></g><circle cx="50" cy="38" r="7" fill="#4a4f55"/><circle cx="50" cy="38" r="2.5" fill="#d9695f"/>',
+      centro: '<ellipse cx="50" cy="90" rx="38" ry="3" fill="#3b3631" opacity=".12"/><path d="M14 56l4 22h6l-2-20zM86 56l-4 22h-6l2-20z" fill="#a67c52"/><path d="M38 60l2 20h6l-1-18zM62 60l-2 20h-6l1-18z" fill="#8f6a45"/><ellipse cx="50" cy="56" rx="42" ry="14" fill="#8f6a45"/><ellipse cx="50" cy="52" rx="42" ry="14" fill="#c49a6c"/><ellipse cx="50" cy="51" rx="34" ry="9" fill="#d3ad82"/><rect x="42" y="34" width="16" height="14" rx="3" fill="#f6f1ea"/><path d="M50 34c-6-8 2-12 0-18 6 4 8 12 0 18z" fill="#7fb08f"/>',
+      canto: '<ellipse cx="50" cy="90" rx="26" ry="3" fill="#3b3631" opacity=".12"/><rect x="26" y="46" width="5" height="40" rx="2" fill="#8f6a45"/><rect x="69" y="46" width="5" height="40" rx="2" fill="#8f6a45"/><rect x="22" y="38" width="56" height="9" fill="#a67c52"/><rect x="40" y="41" width="20" height="4" rx="2" fill="#f2ece4"/><ellipse cx="50" cy="40" rx="28" ry="9" fill="#a67c52"/><ellipse cx="50" cy="36" rx="28" ry="9" fill="#c49a6c"/><path d="M42 36l-3-14h22l-3 14z" fill="#f2ece4"/><path d="M50 22c-9-3-12-12-8-17 3 5 9 8 8 17zM50 22c9-3 12-12 8-17-3 5-9 8-8 17z" fill="#7fb08f"/>',
+      fruteira: '<path d="M10 46h80c0 22-18 34-40 34S10 68 10 46z" fill="#a67c52"/><path d="M10 46h80c0 4-.4 8-1.4 11H11.4C10.4 54 10 50 10 46z" fill="#c49a6c"/><rect x="38" y="80" width="24" height="7" rx="3" fill="#8f6a45"/><circle cx="32" cy="36" r="14" fill="#d9534a"/><path d="M32 22c0-5 3-7 6-8" stroke="#6f8f55" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="58" cy="34" r="15" fill="#f0a23a"/><circle cx="76" cy="41" r="11" fill="#9bc25f"/><path d="M14 47c10-12 32-12 48-4-3 4-9 6-16 5-10-1-20-1-32-1z" fill="#f2cf4a"/><circle cx="47" cy="45" r="4" fill="#8f4f9a"/><circle cx="54" cy="47" r="4" fill="#8f4f9a"/><circle cx="50" cy="51" r="4" fill="#a45cae"/>',
+      gelo: '<rect x="20" y="14" width="60" height="72" rx="9" fill="#bcc6ce"/><rect x="18" y="12" width="60" height="72" rx="9" fill="#e4eaef"/><rect x="26" y="20" width="44" height="34" rx="6" fill="#3f6f8e"/><g fill="#d8f0fa"><rect x="30" y="38" width="11" height="11" rx="3"/><rect x="43" y="40" width="11" height="11" rx="3"/><rect x="56" y="38" width="10" height="11" rx="3"/><rect x="36" y="28" width="11" height="11" rx="3" transform="rotate(-12 41 33)"/><rect x="50" y="27" width="11" height="11" rx="3" transform="rotate(10 55 32)"/></g><rect x="26" y="60" width="44" height="14" rx="4" fill="#c4ced6"/><circle cx="35" cy="67" r="3.2" fill="#5fa8cb"/><circle cx="45" cy="67" r="3.2" fill="#8e9aa5"/><rect x="54" y="65" width="10" height="4" rx="2" fill="#8e9aa5"/><rect x="82" y="30" width="10" height="10" rx="3" fill="#d8f0fa" transform="rotate(15 87 35)"/>',
+      cafeteira: '<rect x="18" y="82" width="60" height="7" rx="3.5" fill="#33373c"/><rect x="62" y="14" width="16" height="72" rx="4" fill="#4a4f55"/><rect x="20" y="14" width="58" height="18" rx="6" fill="#4a4f55"/><rect x="32" y="30" width="14" height="6" rx="2" fill="#33373c"/><path d="M26 50h40l-4 32H30z" fill="#d6e9f0"/><path d="M28 64h36l-2.5 18H30.5z" fill="#7a4a2b"/><path d="M66 56h8a6 6 0 0 1 0 14h-6" fill="none" stroke="#33373c" stroke-width="4.5" stroke-linecap="round"/><rect x="22" y="48" width="48" height="5" rx="2.5" fill="#33373c"/><circle cx="70" cy="22" r="3" fill="#d9695f"/><path d="M36 43c-3-3 3-5 0-9M46 43c-3-3 3-5 0-9" stroke="#b9cbd6" stroke-width="2.5" fill="none" stroke-linecap="round"/>',
+      lixeira: '<rect x="26" y="34" width="48" height="52" rx="7" fill="#aab5be"/><rect x="26" y="34" width="14" height="52" rx="7" fill="#cfd7dd"/><rect x="23" y="24" width="54" height="12" rx="6" fill="#4a4f55"/><rect x="42" y="17" width="16" height="9" rx="4.5" fill="#6b727a"/><rect x="38" y="48" width="24" height="3" rx="1.5" fill="#8e9aa5"/><rect x="38" y="56" width="24" height="3" rx="1.5" fill="#8e9aa5"/><rect x="46" y="80" width="9" height="8" fill="#6b727a"/><rect x="36" y="84" width="30" height="6" rx="3" fill="#33373c"/>',
+      travesseiro: '<path d="M12 32Q50 14 88 32Q96 50 88 70Q50 88 12 70Q4 50 12 32z" fill="#a9bccb"/><path d="M12 28Q50 10 88 28Q96 46 88 66Q50 84 12 66Q4 46 12 28z" fill="#d6e3ec"/><path d="M20 34Q50 24 80 34" stroke="#bccfdc" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M20 58Q50 70 80 58" stroke="#bccfdc" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="14" cy="30" r="4" fill="#bccfdc"/><circle cx="86" cy="30" r="4" fill="#bccfdc"/><circle cx="14" cy="64" r="4" fill="#bccfdc"/><circle cx="86" cy="64" r="4" fill="#bccfdc"/>',
+      retrato: '<path d="M38 70h24l8 20H30z" fill="#8f6a45"/><rect x="12" y="12" width="76" height="68" rx="6" fill="#a67c52"/><rect x="12" y="12" width="76" height="8" rx="4" fill="#c49a6c"/><rect x="21" y="21" width="58" height="50" rx="3" fill="#f6f1ea"/><rect x="26" y="26" width="48" height="40" rx="2" fill="#a9d4e6"/><path d="M26 66V54q10-8 20-2t28-4v18z" fill="#8fbf8a"/><circle cx="62" cy="36" r="5" fill="#f5d46a"/><path d="M42 48c-3-4-9 0-5 5l5 5 5-5c4-5-2-9-5-5z" fill="#e2788f"/>',
+      botijao: '<rect x="42" y="10" width="16" height="9" rx="2" fill="#6b727a"/><rect x="36" y="17" width="28" height="10" rx="3" fill="#33373c"/><path d="M30 38c0-8 9-11 20-11s20 3 20 11v44c0 5-4 8-8 8H38c-4 0-8-3-8-8z" fill="#c9552a"/><path d="M30 38c0-8 9-11 20-11V90H38c-4 0-8-3-8-8z" fill="#e2662c"/><rect x="30" y="50" width="40" height="22" fill="#fbf8f3"/><path d="M50 53c5 5 8 8 8 12a8 8 0 0 1-16 0c0-4 3-6 4-9 1 2 2 3 4 3-1-3-1-4 0-6z" fill="#3a8fd0"/><rect x="28" y="82" width="44" height="8" rx="4" fill="#33373c"/>',
+      vinho: '<path d="M14 14h32c2 22-2 38-16 40C16 52 12 36 14 14z" fill="#e9f3f6"/><path d="M14.5 26h31c-.8 16-5 26-15.5 28C19.5 52 15 42 14.5 26z" fill="#8c2f3a"/><rect x="28.5" y="52" width="3" height="28" fill="#cfe0e6"/><ellipse cx="30" cy="82" rx="13" ry="3.5" fill="#cfe0e6"/><path d="M58 22h30c1.5 20-2 34-15 36C60 56 56 40 58 22z" fill="#e9f3f6"/><path d="M58.5 36h29c-1 14-5 22-14.5 22C64 56 59 48 58.5 36z" fill="#f0d98a"/><rect x="72" y="56" width="3" height="26" fill="#cfe0e6"/><ellipse cx="73.5" cy="84" rx="12" ry="3.5" fill="#cfe0e6"/><path d="M20 20c-1 8 0 16 3 22" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>',
+      champanhe: '<g transform="rotate(-10 34 56)"><path d="M24 10h20l-2 42c0 7-8 7-8 7s-8 0-8-7z" fill="#eaf4f6"/><path d="M25 24h18l-1 28c0 5-8 5-8 5s-8 0-8-5z" fill="#f3d97a"/><rect x="32" y="58" width="3" height="22" fill="#cfe0e6"/><ellipse cx="33.5" cy="82" rx="10" ry="3" fill="#cfe0e6"/><circle cx="31" cy="46" r="1.8" fill="#fff"/><circle cx="36" cy="38" r="1.5" fill="#fff"/><circle cx="32" cy="31" r="1.3" fill="#fff"/></g><g transform="rotate(10 66 56)"><path d="M56 10h20l-2 42c0 7-8 7-8 7s-8 0-8-7z" fill="#eaf4f6"/><path d="M57 24h18l-1 28c0 5-8 5-8 5s-8 0-8-5z" fill="#f3d97a"/><rect x="64" y="58" width="3" height="22" fill="#cfe0e6"/><ellipse cx="65.5" cy="82" rx="10" ry="3" fill="#cfe0e6"/><circle cx="63" cy="46" r="1.8" fill="#fff"/><circle cx="68" cy="38" r="1.5" fill="#fff"/><circle cx="64" cy="31" r="1.3" fill="#fff"/></g><path d="M50 4l1.5 4 4 1.5-4 1.5L50 15l-1.5-4-4-1.5 4-1.5z" fill="#f3d97a"/>',
+      tabua: '<path d="M32 56L66 88" stroke="#4a4f55" stroke-width="5" stroke-linecap="round"/><path d="M66 56L32 88" stroke="#6b727a" stroke-width="5" stroke-linecap="round"/><path d="M8 36h56c18 0 28 4 28 12s-10 12-28 12H8z" fill="#8a7764"/><path d="M8 32h56c18 0 28 4 28 12s-10 12-28 12H8z" fill="#8ec3dc"/><path d="M14 38h50c10 0 18 2 22 6" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/><rect x="4" y="32" width="8" height="24" rx="4" fill="#4a4f55"/><circle cx="50" cy="56" r="3" fill="#d9695f"/>',
+      xicara: '<ellipse cx="25" cy="76" rx="22" ry="6" fill="#d9cfc0"/><path d="M38 52h5a7 7 0 0 1 0 15h-7" fill="none" stroke="#f7f2ea" stroke-width="4.5" stroke-linecap="round"/><path d="M8 46h34c0 16-6 26-17 26S8 62 8 46z" fill="#f7f2ea"/><ellipse cx="25" cy="46" rx="17" ry="4" fill="#7a4a2b"/><ellipse cx="63" cy="82" rx="22" ry="6" fill="#d9cfc0"/><path d="M76 52h5a7 7 0 0 1 0 15h-7" fill="none" stroke="#d9695f" stroke-width="4.5" stroke-linecap="round"/><path d="M46 46h34c0 16-6 26-17 26S46 62 46 46z" fill="#d9695f"/><ellipse cx="63" cy="46" rx="17" ry="4" fill="#5a3320"/>',
+      geladeira: '<rect x="28" y="8" width="48" height="78" rx="7" fill="#aab5be"/><rect x="26" y="6" width="48" height="78" rx="7" fill="#e3e9ee"/><rect x="26" y="33" width="48" height="3" fill="#aab5be"/><rect x="31" y="16" width="4" height="12" rx="2" fill="#6b727a"/><rect x="31" y="42" width="4" height="22" rx="2" fill="#6b727a"/><rect x="42" y="11" width="3" height="18" rx="1.5" fill="#fff" opacity=".7"/><rect x="32" y="84" width="8" height="6" rx="2" fill="#4a4f55"/><rect x="60" y="84" width="8" height="6" rx="2" fill="#4a4f55"/>'
+    };
+    function semAcento(s) { return String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); }
+    function chaveIlus(nome) {
+      var n = semAcento(nome);
+      function tem() { for (var i = 0; i < arguments.length; i++) if (n.indexOf(arguments[i]) < 0) return false; return true; }
+      if (tem("geladeira") || tem("refrigerador")) return "geladeira";
+      if (tem("robo") || tem("aspirador")) return "robo";
+      if (tem("climatizador")) return "climatizador";
+      if (tem("ventilador")) return "ventilador";
+      if (tem("mesinha", "canto") || tem("mesa", "canto")) return "canto";
+      if (tem("mesinha") || tem("mesa de centro")) return "centro";
+      if (tem("fruteira")) return "fruteira";
+      if (tem("gelo")) return "gelo";
+      if (tem("cafeteira")) return "cafeteira";
+      if (tem("lixeira")) return "lixeira";
+      if (tem("travesseiro")) return "travesseiro";
+      if (tem("retrato")) return "retrato";
+      if (tem("botijao") || /\bgas\b/.test(n)) return "botijao";
+      if (tem("champanhe") || tem("champagne")) return "champanhe";
+      if (tem("vinho") || tem("taca")) return "vinho";
+      if (tem("panela")) return "panela";
+      if (tem("jogo", "frigideira")) return "jogofrig";
+      if (tem("frigideira")) return "frigideira";
+      if (tem("cama") || tem("lencol")) return "cama";
+      if (tem("toalha")) return "toalha";
+      if (tem("tabua") || tem("passar")) return "tabua";
+      if (tem("xicara")) return "xicara";
+      return null;
+    }
+    function ilustracao(nome) {
+      var k = chaveIlus(nome);
+      return k ? '<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">' + SOMBRA + ILUS[k] + '</svg>' : null;
+    }
     var pixCfg = null;
     function pixOk() { return !!(pixCfg && pixCfg.chave && !Pix.payload(pixCfg).erro); }
     /* pagamento online (Mercado Pago): só quando config.pagamento.online === true */
@@ -899,7 +963,7 @@
         var fig = el("span", "img" + (c.imagem ? "" : " sem"));
         if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) {
           var im = el("img"); im.src = c.imagem; im.alt = ""; im.loading = "lazy"; im.width = 400; im.height = 300; fig.appendChild(im);
-        } else { fig.className = "img sem"; fig.innerHTML = PRESENTE_SVG; }
+        } else { var il = ilustracao(c.nome); if (il) { fig.className = "img ilus"; fig.innerHTML = il; } else { fig.className = "img sem"; fig.innerHTML = PRESENTE_SVG; } }
         var corpo = el("span", "corpo");
         corpo.appendChild(el("span", "titulo", c.nome));
         if (c.descricao) corpo.appendChild(el("span", "desc", c.descricao));
@@ -928,7 +992,9 @@
     var cjPagar = $("#cj-pagar"), cjManual = $("#cj-manual");
     function cabecalhoCota(c) {
       var img = $("#cj-img");
-      if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) { img.src = c.imagem; img.hidden = false; } else { img.hidden = true; img.removeAttribute("src"); }
+      var ilb = $("#cj-ilus"), il = null;
+      if (typeof c.imagem === "string" && c.imagem.indexOf(FOTOS) === 0) { img.src = c.imagem; img.hidden = false; } else { img.hidden = true; img.removeAttribute("src"); il = ilustracao(c.nome); }
+      ilb.innerHTML = il || ""; ilb.hidden = !il;
       $("#cj-titulo").textContent = c.nome;
       $("#cj-valor").textContent = moeda(c.valor);
       $("#cj-desc").textContent = c.descricao || ""; $("#cj-desc").hidden = !c.descricao;
