@@ -336,10 +336,12 @@
   <section class="boas alt" aria-label="Boas-vindas">
     <div class="wrap">
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
+      <div id="txt-inicio">
       <p>Criamos esse site para compartilhar com vocês os detalhes da organização do nosso casamento. Estamos muito felizes e contamos com a presença de todos no nosso grande dia!</p>
       <p>Aqui vocês poderão confirmar sua presença, lista de presentes e a localização do evento.</p>
-      <p>É muito importante confirmar sua presença. Para isto contamos com sua ajuda clicando no menu “Confirme sua Presença” e preenchendo os dados necessários. Para nos presentear, escolha qualquer item da nossa lista de presentes ou então vocês podem utilizar a opção de cotas, escolhendo a #cota de sua preferência. Fiquem à vontade!</p>
-      <p class="assina">Aguardamos vocês no nosso grande dia!</p>
+      <p>É muito importante confirmar sua presença. Para isto contamos com sua ajuda clicando no menu “Confirme sua Presença” e preenchendo os dados necessários. Para nos presentear, escolha qualquer item da nossa lista de presentes de sua preferência. Fiquem à vontade!</p>
+      </div>
+      <p class="assina" id="txt-fecho">Aguardamos vocês no nosso grande dia!</p>
     </div>
   </section>
 
@@ -358,8 +360,10 @@
       <div class="local">
         <figure><img src="img/cabana-do-lago-fachada.webp" width="1100" height="1650" loading="lazy" alt="Fachada do restaurante Cabana do Lago ao entardecer"></figure>
         <div>
+          <div id="txt-recepcao">
           <p>Convidamos você pontualmente para nossa cerimônia no dia <span data-data="original">07 de Janeiro de 2027</span>, no restaurante Cabana do Lago, em Palmas, Tocantins.</p>
-          <p>Será a partir das <span data-data="horaOriginal">19:30h</span>.</p>
+          <p>Será pontualmente às <span data-data="horaOriginal">19:30h</span>.</p>
+          </div>
           <div class="info">
             <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
               <p style="margin:0"><strong data-data="longa">7 de janeiro de 2027</strong><span data-data="semana">Quinta-feira, a partir das 19h30</span></p></div>
@@ -388,7 +392,7 @@
     <div class="wrap largo centro">
       <svg class="orn" viewBox="0 0 120 22" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 11h40M80 11h40"/><circle cx="54" cy="11" r="7"/><circle cx="66" cy="11" r="7"/></svg>
       <h2 id="t-presentes">Lista de presentes</h2>
-      <p style="max-width:720px; margin-left:auto; margin-right:auto">A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para a nossa tão sonhada lua de mel.</p>
+      <div id="txt-presentes" style="max-width:720px; margin-left:auto; margin-right:auto"><p>A sua presença é o mais importante para nós! Mas, se desejar nos abençoar, criamos uma lista de presentes online. Você pode escolher do conforto da sua casa a cota que preferir, e o valor será revertido para realização de nossos sonhos.</p></div>
       <p class="aviso cota-retorno" id="cota-retorno" role="status" aria-live="polite" tabindex="-1" hidden></p>
       <div class="cotas" id="cotas" hidden></div>
       <p class="cotas-nota" id="cotas-nota" role="status" hidden>As cotas serão liberadas em breve.</p>
@@ -1235,6 +1239,13 @@
     }
     function secao(id, mostrar) { document.getElementById(id).hidden = !mostrar; document.getElementById("menu-" + id).hidden = !mostrar; }
     function secoes(cfg) {
+      /* textos editáveis no painel (config "textos"); vazio = fica o texto padrão desta página */
+      var tx = cfg.textos && typeof cfg.textos === "object" ? cfg.textos : {};
+      function txt(k) { return typeof tx[k] === "string" ? tx[k].trim().slice(0, 4000) : ""; }
+      if (txt("inicio")) paragrafos($("#txt-inicio"), txt("inicio"));
+      if (txt("fecho")) $("#txt-fecho").textContent = txt("fecho").replace(/\s+/g, " ").slice(0, 300);
+      if (txt("recepcao")) paragrafos($("#txt-recepcao"), txt("recepcao"));
+      if (txt("presentes")) paragrafos($("#txt-presentes"), txt("presentes"));
       var casal = cfg.casal && typeof cfg.casal.texto === "string" ? cfg.casal.texto.trim().slice(0, 4000) : "";
       if (casal) paragrafos($("#casal-texto"), casal);
       secao("casal", !!casal);
@@ -1283,7 +1294,7 @@
 
     aplicarLimites(null);
     Promise.all([
-      ler("config?chave=in.(fotos,pix,rsvp,casal,padrinhos,pagamento)&select=chave,valor").catch(function () { return []; }),
+      ler("config?chave=in.(fotos,pix,rsvp,casal,padrinhos,pagamento,textos)&select=chave,valor").catch(function () { return []; }),
       ler(SEL_PRESENTES).catch(function () { return []; })
     ]).then(function (res) {
       var cfg = {};
